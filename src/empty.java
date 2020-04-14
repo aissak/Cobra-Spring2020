@@ -4,5 +4,6 @@ public class empty {
 		System.out.println("HOLA");
 		System.out.println("Hello, hello, hello!");
 		System.out.println("Bonjour!");
+		System.out.println("2nd!");
 	}
 }
