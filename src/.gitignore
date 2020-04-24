@@ -1,1 +1,12 @@
 /empty.class
+/Battle.class
+/CommandHandler.class
+/Connector.class
+/Encounter.class
+/Floor.class
+/Item.class
+/MadMansionFX.class
+/Monster.class
+/Puzzle.class
+/Room.class
+/Weaponizable.class
