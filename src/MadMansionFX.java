@@ -49,6 +49,8 @@ public class MadMansionFX extends Application {
 	
 	private static Player player;
 	
+	private static Room[] roomTracker;
+	
 	static void createAndShowGUI(Stage primaryStage) {
 		window = new BorderPane();
 		rightPane = new GridPane();
@@ -123,31 +125,42 @@ public class MadMansionFX extends Application {
 	
 	/* this method defines what happens after the user clicks ENTER */
 	public static void relay() {
+		
 		/* this is the connection between View and Controller */
 		interactionPane.setText(interactionPane.getText() + "\n" + "> " + CommandHandler.peekCommand());
 		
 		if (CommandHandler.peekCommand().contains("north")) {
-			// player.setRoom();
+			player.setRoomNumber(roomTracker[roomTracker[player.getRoom()].getNorth()].getNumber());
+			interactionPane.setText(interactionPane.getText() + "\n" + player.getPlayerID() + " entered Room " + player.getRoom() + "!");
+			System.out.println(player.getRoom());
 		}
 		else if (CommandHandler.peekCommand().contains("south")) {
-			
+			player.setRoomNumber(roomTracker[roomTracker[player.getRoom()].getSouth()].getNumber());
+			interactionPane.setText(interactionPane.getText() + "\n" + player.getPlayerID() + " entered Room " + player.getRoom() + "!");
+			System.out.println(player.getRoom());
 		}
 		else if (CommandHandler.peekCommand().contains("east")) {
-			
+			player.setRoomNumber(roomTracker[roomTracker[player.getRoom()].getEast()].getNumber());
+			interactionPane.setText(interactionPane.getText() + "\n" + player.getPlayerID() + " entered Room " + player.getRoom() + "!");
+			System.out.println(player.getRoom());
 		}
 		else if (CommandHandler.peekCommand().contains("west")) {
-			
+			player.setRoomNumber(roomTracker[roomTracker[player.getRoom()].getWest()].getNumber());
+			interactionPane.setText(interactionPane.getText() + "\n" + player.getPlayerID() + " entered Room " + player.getRoom() + "!");
+			System.out.println(player.getRoom());
 		}
-		
+		updateView();
 		console.clear();
+		
 	}
 	
 	public static void main(String[] args) {
 		GameLoader.init();
 		GameLoader.run();
-		//PlayerLoader.init();
-		//PlayerLoader.run();
-		
+		roomTracker = GameLoader.getRooms();
+		PlayerLoader.init();
+		PlayerLoader.run();
+		player = PlayerLoader.getPlayer();
 		launch(args);
 	}
 	
@@ -155,11 +168,33 @@ public class MadMansionFX extends Application {
 	public void start(Stage primaryStage) {
 	
 		createAndShowGUI(primaryStage);
+		updateView();
 	
 	}
 	
-	private void updateView() {
-	
+	private static void updateView() {
+		
+		/* that TextArea on the right */
+		commandArea.clear();
+		
+		/* we're lazy so let's use a sentinel value */
+		if (roomTracker[player.getRoom()].getNorth() != 0) {
+			commandArea.setText(commandArea.getText() + "\n" + "[NORTH]: \n- Room " + roomTracker[player.getRoom()].getNorth() + "\n");
+		}
+		
+		if (roomTracker[player.getRoom()].getEast() != 0) {
+			commandArea.setText(commandArea.getText() + "\n" + "[EAST]: \n- Room " + roomTracker[player.getRoom()].getEast() + "\n");
+		}
+		
+		if (roomTracker[player.getRoom()].getSouth() != 0) {
+			commandArea.setText(commandArea.getText() + "\n" + "[SOUTH]: \n- Room " + roomTracker[player.getRoom()].getSouth() + "\n");
+		}
+		
+		if (roomTracker[player.getRoom()].getWest() != 0) {
+			commandArea.setText(commandArea.getText() + "\n" + "[WEST]: \n- Room " + roomTracker[player.getRoom()].getWest() + "\n");
+		}
+		
+		interactionPane.setText(interactionPane.getText() + "\n" + roomTracker[player.getRoom()].getDescription());
 	}
 	
 }

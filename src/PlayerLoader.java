@@ -6,8 +6,9 @@ import java.util.Scanner;
 public class PlayerLoader {
 	private static File playerFile;
 	private static Scanner fileScanner;
-	private static String PLAYER_FILE_NAME = "player.txt";
+	private static String PLAYER_FILE_NAME = "players.txt";
 	private static ArrayList<Player> playerList;
+	private static Player returnPlayer;
 	
 	
 	public static void init() {
@@ -31,7 +32,6 @@ public class PlayerLoader {
 			String[] splitLine = nextLine.split(";", 3);
 		
 			Player p = new Player(splitLine);
-			System.out.println(p);
 			playerList.add(p);
 			System.out.println("---");
 				
@@ -40,10 +40,16 @@ public class PlayerLoader {
 			
 		}
 		System.out.println(playerList.size());
-		for (Player r : playerList) {
-			System.out.println(r.toString());
+		for (Player p : playerList) {
+			System.out.println(p.toString());
+			returnPlayer = p;
 		}
 		
+		
+	}
+	
+	public static Player getPlayer() {
+		return returnPlayer;
 	}
 	
 	

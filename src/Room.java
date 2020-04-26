@@ -57,15 +57,23 @@ public class Room {
 	}
 	
 	public int getSouth() {
-		return roomConnections[1];
+		return roomConnections[2];
 	}
 	
 	public int getEast() {
-		return roomConnections[2];
+		return roomConnections[1];
 	}
 	
 	public int getWest() {
 		return roomConnections[3];
+	}
+	
+	public int getNumber() {
+		return this.roomID;
+	}
+	
+	public String getDescription() {
+		return roomDescription;
 	}
 	
 	

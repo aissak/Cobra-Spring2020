@@ -1,21 +1,39 @@
 
 public class Player {
-	private Room room;
-	private int points;
+	private int roomNumber;
+	private int score;
 	private int maxFloor;
+	private String playerID = "";
 	
 	public void setRoom(Room room) {
-		this.room = room;
+		this.roomNumber = roomNumber;
 	}
 	
-	public Room getRoom() {
-		return room;
+	public int getRoom() {
+		return roomNumber;
+	}
+	
+	public void setRoomNumber(int roomNumber) {
+		this.roomNumber = roomNumber;
+	}
+	
+	public String getPlayerID() {
+		return playerID;
 	}
 	
 	Player(String[] splitLine) {
-		
+		this.playerID = splitLine[0];
+		this.score = Integer.valueOf(splitLine[1]);
+		this.roomNumber = 1;
 		
 	}
+	
+	public String toString() {
+		return "PlayerID: " + playerID
+				+ "; " + "Score: " + score + "; " + "Room Number: " + roomNumber + ";";
+	}
+	
+	
 	
 	
 	

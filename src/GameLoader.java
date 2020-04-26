@@ -7,7 +7,6 @@ public class GameLoader {
 	private static File roomFile;
 	private static Scanner fileScanner;
 	private static String ROOM_FILE_NAME = "rooms.txt";
-	private static String PLAYER_FILE_NAME = "player.txt";
 	private static ArrayList<Room> roomList;
 	
 	
@@ -49,6 +48,15 @@ public class GameLoader {
 			System.out.println(r.toString());
 		}
 		
+	}
+	
+	public static Room[] getRooms() {
+		Room[] roomArray = new Room[roomList.size() + 1];
+		for (Room r : roomList) {
+			roomArray[r.getNumber()] = r;
+		}
+		System.out.println(roomArray.length);
+		return roomArray;
 	}
 	
 	
