@@ -161,12 +161,13 @@ public class MadMansionFX extends Application {
 		PlayerLoader.init();
 		PlayerLoader.run();
 		player = PlayerLoader.getPlayer();
+		PuzzleLoader.init();
+		PuzzleLoader.run();
 		launch(args);
 	}
 	
 	
 	public void start(Stage primaryStage) {
-	
 		createAndShowGUI(primaryStage);
 		updateView();
 	

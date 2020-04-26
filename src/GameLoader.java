@@ -11,8 +11,6 @@ public class GameLoader {
 	
 	
 	
-	
-	
 	public static void init() {
 		roomList = new ArrayList<Room>();
 		File roomFile = new File(ROOM_FILE_NAME);
@@ -39,8 +37,6 @@ public class GameLoader {
 			roomList.add(r);
 			System.out.println("---");
 				
-			
-			
 			
 		}
 		System.out.println(roomList.size());
