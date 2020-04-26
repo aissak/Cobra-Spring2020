@@ -165,11 +165,7 @@ public class Item {
 	public void setHealpoints(int healpoints) {
 		this.healpoints = healpoints;
 	}
-	
-	// Amina is tired but she is working hard
-	
-	
-	//Jeremia is nervous but tying hard as well
+
 	
 	
 	
