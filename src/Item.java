@@ -169,7 +169,7 @@ public class Item {
 	// Amina is tired but she is working hard
 	
 	
-	
+	//Jeremia is nervous but tying hard as well
 	
 	
 	
