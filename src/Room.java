@@ -1,9 +1,17 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Scanner;
 import java.util.Set;
 
 public class Room {
 	private int roomID;
+	private int floorNumber;
 	private String roomDescription = "";
+	
+	
+	
 	
 	// roomConnections order based on Never Eat Soggy Waffles; [N, E, S, W];
 	private int[] roomConnections = new int[4];
@@ -12,44 +20,52 @@ public class Room {
 	private String toString = "";
 	
 	Room(String[] roomData) {
-		this.roomID = Integer.parseInt(roomData[0]);
-		this.roomDescription = roomData[1];
-		roomConnections[0] = Integer.parseInt(roomData[2]);
-		roomConnections[1] = Integer.parseInt(roomData[3]);
-		roomConnections[2] = Integer.parseInt(roomData[4]);
-		roomConnections[3] = Integer.parseInt(roomData[5]);
-		isSafePoint = Boolean.valueOf(roomData[6]);
-		eventPool = new HashSet<>();
-		toString = "Room ID: " + roomID 
-				+ "\n" + "Room Description: " + roomDescription
-				+ "\n" + "Room Connections: " + 
-				"N" + roomConnections[0] + " " + 
-				"E" + roomConnections[1] + " " + 
-				"S" + roomConnections[2] + " " + 
-				"W" + roomConnections[3] + "\n" + 
-				"Safe: " + isSafePoint;
+		this.roomID = Integer.valueOf(roomData[0]);
+
+		this.floorNumber = Integer.valueOf(roomData[1]);
+
+		this.isSafePoint = Boolean.valueOf(roomData[2]);
+
+		this.roomDescription = roomData[3];
+
+		/* North */
+		this.roomConnections[0] = Integer.valueOf(roomData[4]);
 		
+		/* East */
+		this.roomConnections[1] = Integer.valueOf(roomData[5]);
+
+		/* South */
+		this.roomConnections[2] = Integer.valueOf(roomData[6]);
+
+		/* West */
+		this.roomConnections[3] = Integer.valueOf(roomData[7]);
 	}
 	
 	public String toString() {
-		return toString;
+		return "ID: " + roomID + "; " 
+				+ "Floor: " + floorNumber + "; " 
+				+ "Description: " + roomDescription + "; "
+				+ "North: " + roomConnections[0] + "; "
+				+ "East: " + roomConnections[1] + "; "
+				+ "South: " + roomConnections[2]+  "; "
+				+ "West: " + roomConnections[3] + ";";
 	}
 	
-	public static void main(String[] args) {
-		String[] s = new String[7];
-		s[0] = "34";
-		s[1] = "hello world";
-		s[2] = "1";
-		s[3] = "12";
-		s[4] = "123";
-		s[5] = "1234";
-		s[6] = "false";
-		Room r = new Room(s);
-		System.out.println(r.toString());
-		
-		
-				
-		
+
+	public int getNorth() {
+		return roomConnections[0];
+	}
+	
+	public int getSouth() {
+		return roomConnections[1];
+	}
+	
+	public int getEast() {
+		return roomConnections[2];
+	}
+	
+	public int getWest() {
+		return roomConnections[3];
 	}
 	
 	

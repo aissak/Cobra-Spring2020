@@ -47,6 +47,8 @@ public class MadMansionFX extends Application {
 	/* where stuff comes up at */ 
 	private static TextArea interactionPane;
 	
+	private static Player player;
+	
 	static void createAndShowGUI(Stage primaryStage) {
 		window = new BorderPane();
 		rightPane = new GridPane();
@@ -121,22 +123,42 @@ public class MadMansionFX extends Application {
 	
 	/* this method defines what happens after the user clicks ENTER */
 	public static void relay() {
-		
 		/* this is the connection between View and Controller */
 		interactionPane.setText(interactionPane.getText() + "\n" + "> " + CommandHandler.peekCommand());
+		
+		if (CommandHandler.peekCommand().contains("north")) {
+			// player.setRoom();
+		}
+		else if (CommandHandler.peekCommand().contains("south")) {
+			
+		}
+		else if (CommandHandler.peekCommand().contains("east")) {
+			
+		}
+		else if (CommandHandler.peekCommand().contains("west")) {
+			
+		}
+		
 		console.clear();
 	}
 	
 	public static void main(String[] args) {
+		GameLoader.init();
+		GameLoader.run();
+		//PlayerLoader.init();
+		//PlayerLoader.run();
 		
 		launch(args);
-	
 	}
 	
 	
 	public void start(Stage primaryStage) {
 	
 		createAndShowGUI(primaryStage);
+	
+	}
+	
+	private void updateView() {
 	
 	}
 	

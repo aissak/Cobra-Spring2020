@@ -10,6 +10,10 @@ import javafx.scene.input.KeyEvent;
  */
 public class CommandHandler implements EventHandler<KeyEvent> {
 	private static Stack<String> commandStack = new Stack<String>();
+	private static boolean gameHasPlayer;
+	private static boolean roomHasMonster;
+	private static boolean roomHasPuzzle;
+	
 
 	public void handle(ActionEvent event) {
 		// TODO Auto-generated method stub
@@ -19,9 +23,12 @@ public class CommandHandler implements EventHandler<KeyEvent> {
 	public void handle(KeyEvent event) {
 		switch (event.getCode().toString()) {
 		case "ENTER": {
-			commandStack.add(MadMansionFX.getCommand().trim());
-			MadMansionFX.relay();
-		}
+			
+			
+				commandStack.add(MadMansionFX.getCommand().trim());
+				MadMansionFX.relay();
+				
+			}
 		}
 		
 	}
