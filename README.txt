@@ -1,0 +1,74 @@
+Text files in this project:
+
+1. rooms.txt
+2. players.txt
+3. monsters.txt
+4. items.txt
+5. puzzles.txt
+
+Inside "rooms.txt" (in order)
+- Room ID
+- Room Floor
+- Room Description text
+- Room North Availability
+- Room East Availability
+- Room South Availability
+- Room West Availability
+
+Inside "players.txt" (in order)
+- Player Name
+- 0
+- 0
+
+Inside "monsters.txt" (in order)
+- Monster ID
+- Monster Name
+- Monster Health Points (HP)
+- Monster Attack Points (AP)
+- Monster HP Low
+- Monster HP High
+- Monster AP Low
+- Monster AP High
+- Monster Armor Low
+- Monster Armor High
+
+Inside "items.txt" (in order)
+- Item ID
+- Item Name
+- Item Description
+- Item Stat Increase Type
+- Item Stat Increase Amount
+
+Inside "puzzles.txt"
+- Puzzle ID
+- Puzzle Floor
+- Puzzle Riddle
+- Puzzle Answer
+- Puzzle Floor
+- Puzzle Room Location
+- Puzzle Rewards
+- Puzzle Hints
+- Puzzle Attempts
+- Puzzle Solved Status
+
+--commands--
+
+north
+east
+south
+west
+save
+exit
+help
+attack
+run away
+solve
+skip
+explore
+inventory
+--WIP
+pickup item
+drop item
+equip item
+unequip item
+
