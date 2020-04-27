@@ -158,11 +158,38 @@ public class MadMansionFX extends Application {
 			}
 		}
 		
+		
+		
+		
 		else if (roomTracker[player.getRoom()].hasMonster() && roomTracker[player.getRoom()].getMonster().isAlive()) {
+			// interactionPane.setText(interactionPane.getText() + "\n" + roomTracker[player.getRoom()].getMonster().getMonsterName());
+			//updateView();
 			
-			interactionPane.setText(interactionPane.getText() + "\n" + roomTracker[player.getRoom()].getMonster().getMonsterName());
-			updateView();
+			
+			if (roomTracker[player.getRoom()].getMonster().getTurn()) {
+				interactionPane.setText(interactionPane.getText() + "\n" + roomTracker[player.getRoom()].getMonster().getMonsterName() 
+						+ " attacked!");
+				player.setHealth(player.getHealth() - roomTracker[player.getRoom()].getMonster().getAttack());
+
+				interactionPane.setText(interactionPane.getText() + "\n" + "Your health: " + player.getHealth());
+				roomTracker[player.getRoom()].getMonster().getAttack();
+			}
+			else {
+				roomTracker[player.getRoom()].getMonster().incurDamage(2);
+				interactionPane.setText(interactionPane.getText() + "\n" + 
+				"You attacked the " + roomTracker[player.getRoom()].getMonster().getMonsterName() + "!");
+				interactionPane.setText(interactionPane.getText() + "\n" + 
+						"Their health: " + roomTracker[player.getRoom()].getMonster().getHealth() + "!");
+				
+			}
+			if (roomTracker[player.getRoom()].getMonster().getHealth() <= 0) {
+				roomTracker[player.getRoom()].getMonster().setDead();
+			}
+			
+			
 		}
+		
+		
 		
 		
 		/* no puzzle, so the user navigates the map */
@@ -207,6 +234,7 @@ public class MadMansionFX extends Application {
 		PlayerLoader.init();
 		PlayerLoader.run();
 		player = PlayerLoader.getPlayer();
+		player.setHealth(100);
 		PuzzleLoader.init();
 		PuzzleLoader.run();
 		puzzleList = PuzzleLoader.getPuzzles();
@@ -216,6 +244,12 @@ public class MadMansionFX extends Application {
 		MonsterLoader.init();
 		MonsterLoader.run();
 		monsterList = MonsterLoader.getMonsters();
+		
+		for (Room r : roomTracker) {
+			if (r.hasMonster() && r.hasPuzzle()) {
+				r.removeMonster(r.getMonster());
+			}
+		}
 		
 		
 		

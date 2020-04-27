@@ -5,6 +5,7 @@ public class Player {
 	private int maxFloor;
 	private String playerID = "";
 	private Item[] inventory;
+	private int playerHealth;
 	
 	public void setRoom(Room room) {
 		this.roomNumber = roomNumber;
@@ -34,6 +35,14 @@ public class Player {
 	public String toString() {
 		return "PlayerID: " + playerID
 				+ "; " + "Score: " + score + "; " + "Room Number: " + roomNumber + ";";
+	}
+	
+	public void setHealth(int i) {
+		this.playerHealth = i;
+	}
+	
+	public int getHealth() {
+		return playerHealth;
 	}
 	
 

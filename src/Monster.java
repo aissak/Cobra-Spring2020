@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Set;
 
 public class Monster {
@@ -14,6 +15,8 @@ public class Monster {
 	private int itemID;
 	private int floorNumber;
 	private boolean isAlive;
+	private boolean isTurn;
+	private int absoluteHealth;
 	
 	
 	/**
@@ -50,6 +53,10 @@ public class Monster {
 		this.itemID = itemID;
 		this.floorNumber = floorNumber;
 		isAlive = true;
+		isTurn = true;
+		
+		Random r = new Random();
+		absoluteHealth = monsterHP[r.nextInt(2)];
 	}
 
 
@@ -107,6 +114,10 @@ public class Monster {
 	public int[] getMonsterAD() {
 		return monsterAD;
 	}
+	
+	public boolean getTurn() {
+		return isTurn;
+	}
 
 
 	/**
@@ -162,6 +173,26 @@ public class Monster {
 	
 	public void setRoom(int i) {
 		this.floorNumber = i;
+	}
+	
+	public int getAttack() {
+		isTurn = false;
+		Random r = new Random();
+		int damage = r.nextInt(monsterAD[1] - monsterAD[0]);
+		return monsterAD[0] + damage;
+	}
+	
+	public int getHealth() {
+		return absoluteHealth;
+	}
+	
+	public void incurDamage(int i) {
+		absoluteHealth-=i;
+		isTurn = true;
+	}
+	
+	public void setDead() {
+		isAlive = false;
 	}
 	
 	
