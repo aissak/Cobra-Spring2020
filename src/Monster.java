@@ -1,12 +1,16 @@
+import java.util.ArrayList;
 import java.util.Set;
 
-public abstract class Monster {
+public class Monster {
+	private int monsterID;
 	private String monsterName = "";
 	private String monsterDescription = "";
+	private int playerHPGain;
+	private int playerAPGain;
 	private int[] monsterHP = new int[2];
 	private int[] monsterAD = new int[2];
 	private int[] monsterArmor = new int[2];
-	private Set<Item> itemDropPool;
+	private ArrayList<Item> itemDropPool;
 	
 	
 	/**
@@ -24,14 +28,20 @@ public abstract class Monster {
 	 * @param monsterArmor
 	 * @param itemDropPool
 	 */
-	public Monster(String monsterName, String monsterDescription, int[] monsterHP, int[] monsterAD, int[] monsterArmor,
-			Set<Item> itemDropPool) {
+	public Monster(int monsterID, 
+			String monsterName, 
+			int playerHPGain, 
+			int playerAPGain, 
+			int[] monsterHP, 
+			int[] monsterAD, 
+			int[] monsterArmor) {
+		this.monsterID = monsterID;
 		this.monsterName = monsterName;
-		this.monsterDescription = monsterDescription;
+		this.playerHPGain = playerHPGain;
+		this.playerAPGain = playerAPGain;
 		this.monsterHP = monsterHP;
 		this.monsterAD = monsterAD;
 		this.monsterArmor = monsterArmor;
-		this.itemDropPool = itemDropPool;
 	}
 
 
@@ -118,7 +128,7 @@ public abstract class Monster {
 	/**
 	 * @return the itemDropPool
 	 */
-	public Set<Item> getItemDropPool() {
+	public ArrayList<Item>getItemDropPool() {
 		return itemDropPool;
 	}
 
@@ -126,7 +136,7 @@ public abstract class Monster {
 	/**
 	 * @param itemDropPool the itemDropPool to set
 	 */
-	public void setItemDropPool(Set<Item> itemDropPool) {
+	public void setItemDropPool(ArrayList<Item> itemDropPool) {
 		this.itemDropPool = itemDropPool;
 	}
 	

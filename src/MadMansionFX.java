@@ -57,6 +57,8 @@ public class MadMansionFX extends Application {
 	
 	private static ArrayList<Item> itemsList;
 	
+	private static ArrayList<Monster> monsterList;
+	
 	static void createAndShowGUI(Stage primaryStage) {
 		window = new BorderPane();
 		rightPane = new GridPane();
@@ -202,18 +204,18 @@ public class MadMansionFX extends Application {
 		ItemLoader.init();
 		ItemLoader.run();
 		itemsList = ItemLoader.getItems();
+		MonsterLoader.init();
+		MonsterLoader.run();
+		monsterList = MonsterLoader.getMonsters();
 		
 		
-		for (Item i : itemsList) {
-			System.out.println(i.getItemDescription());
-		}
-		
-		
+		System.out.println("----------------");
 		System.out.println("FOR TESTING: ");
 		for (Puzzle p : puzzleList) {
 			roomTracker[p.getRoom()].setPuzzle(p);
 			System.out.println("There is a puzzle in Room " + p.getRoom());
 		}
+		System.out.println("----------------");
 		launch(args);
 	}
 	

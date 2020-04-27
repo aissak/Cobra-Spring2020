@@ -40,14 +40,9 @@ public class ItemLoader {
 					splitLine[2], splitLine[3],
 					Integer.valueOf(splitLine[4]), Integer.valueOf(splitLine[5]), 
 					Integer.valueOf(splitLine[6]), Integer.valueOf(splitLine[7]));
-
-			for (String s : splitLine) {
-				System.out.println("ITEM: " + s);
-			}
-			System.out.println("----");
 			itemList.add(i);
-
 		}
+		
 	}
 	
 	public static ArrayList<Item> getItems() {
