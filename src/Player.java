@@ -33,10 +33,6 @@ public class Player {
 				+ "; " + "Score: " + score + "; " + "Room Number: " + roomNumber + ";";
 	}
 	
-	
-	
-	
-	
-	
+
 	
 }

@@ -12,8 +12,7 @@ public class Item {
 	private int healpoints;
 	
 
-	public Item() {
-	}
+
 
 
 	/**
@@ -166,6 +165,12 @@ public class Item {
 		this.healpoints = healpoints;
 	}
 
+	@Override
+	public String toString() {
+		return "Item [ItemName=" + ItemName + ", ItemID=" + ItemID + ", ItemDescription=" + ItemDescription
+				+ ", ItemStatType=" + ItemStatType + ", ItemStatAmount=" + ItemStatAmount + ", damagePoints="
+				+ damagePoints + ", armorPoints=" + armorPoints + ", healpoints=" + healpoints + "]";
+	}
 	// pickup 
 		//examine
 		//drop
