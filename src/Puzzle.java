@@ -43,11 +43,7 @@ public class Puzzle {
  		this.puzzleDescription = s;
  	}
  	
- 	
-
-	
- 	
- 	
+ 
 	
 	
 }
