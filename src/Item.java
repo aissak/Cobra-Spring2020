@@ -171,11 +171,6 @@ public class Item {
 				+ ", ItemStatType=" + ItemStatType + ", ItemStatAmount=" + ItemStatAmount + ", damagePoints="
 				+ damagePoints + ", armorPoints=" + armorPoints + ", healpoints=" + healpoints + "]";
 	}
-	// pickup 
-		//examine
-		//drop
-		//equip
-		//unequip
 	
 	
 }
