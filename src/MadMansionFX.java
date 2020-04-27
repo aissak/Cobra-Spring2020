@@ -89,14 +89,9 @@ public class MadMansionFX extends Application {
 		topFlow.setStyle(titleLabel.getStyle());
 		topFlow.setStyle("-fx-background-color: #CCFF99;");
 		
-		Button b1 = new Button("Hello");
-		Button b2 = new Button("World");
-		Button b3 = new Button("test");
+
 		GridPane g = new GridPane();
 		GridPane leftPanel = new GridPane();
-		leftPanel.add(b1, 0, 0);
-		leftPanel.add(b2, 0, 1);
-		leftPanel.add(b3, 0, 2);
 		leftPanel.setPadding(new Insets(5));
 		leftPanel.setVgap(10);
 
@@ -104,9 +99,10 @@ public class MadMansionFX extends Application {
 		
 		interactionPane = new TextArea();
 		interactionPane.setEditable(false);
-		Font font = Font.font("Futura", FontWeight.EXTRA_LIGHT, 28);
-		interactionPane.setFont(font);
+		Font font = Font.font("Futura", FontWeight.EXTRA_LIGHT, 16);
+		//interactionPane.setFont(font);
 		window.setCenter(g);
+		g.setMinSize(200, 200);
 		interactionPane.setStyle("-fx-focus-color: transparent;\n" + 
 				"-fx-border-style: none;\n" + 
 				"-fx-background-radius: 0.0px;\n" + 
@@ -117,7 +113,7 @@ public class MadMansionFX extends Application {
 		
 		g.add(interactionPane, 0, 1);
 		
-		Scene scene = new Scene(window, 600, 1000);
+		Scene scene = new Scene(window, 600, 800);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("MadMansion FX");
 		primaryStage.show();
@@ -147,7 +143,7 @@ public class MadMansionFX extends Application {
 				roomTracker[player.getRoom()].removePuzzle(roomTracker[player.getRoom()].getPuzzle());
 				roomTracker[player.getRoom()].getPuzzle().solve();
 				System.out.println("SOLVED");
-				interactionPane.setText(interactionPane.getText() + "\n" + player.getPlayerID() + " entered Room " + player.getRoom() + "!");
+				interactionPane.setText(interactionPane.getText() + "\n" + "You have solved the puzzle! \n"  + player.getPlayerID() + " entered Room " + player.getRoom() + "!");
 				
 			}
 			else {
@@ -184,6 +180,8 @@ public class MadMansionFX extends Application {
 			}
 			if (roomTracker[player.getRoom()].getMonster().getHealth() <= 0) {
 				roomTracker[player.getRoom()].getMonster().setDead();
+				interactionPane.setText(interactionPane.getText() + "\n" +
+						"You have defeated the " + roomTracker[player.getRoom()].getMonster().getMonsterName() + "!");
 			}
 			
 			
@@ -302,7 +300,7 @@ public class MadMansionFX extends Application {
 			runPuzzle();
 		}
 		if (roomTracker[player.getRoom()].hasMonster() && roomTracker[player.getRoom()].getMonster().isAlive()) {
-			interactionPane.setText(interactionPane.getText() + "\n" + roomTracker[player.getRoom()].getDescription());
+			//interactionPane.setText(interactionPane.getText() + "\n" + roomTracker[player.getRoom()].getDescription());
 			runBattle();
 		}
 		else {
@@ -324,7 +322,7 @@ public class MadMansionFX extends Application {
 	private static void runBattle() {
 		interactionPane.setText(interactionPane.getText() 
 				+ "\n"
-				+ "\n" + "The horror... You've encountered a " + roomTracker[player.getRoom()].getMonster().getMonsterName() + "!"
+				+ "\n" + "The horror... You've encountered a " + roomTracker[player.getRoom()].getMonster().getMonsterName() + "! \n Press enter or return on your keyboard to attack!"
 				+ "\n");
 	}
 	
