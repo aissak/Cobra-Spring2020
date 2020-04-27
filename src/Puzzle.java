@@ -79,11 +79,5 @@ public class Puzzle {
  		return attempts;
  	}
  	
- 	
-
-	
- 	
- 	
-	
 	
 }
