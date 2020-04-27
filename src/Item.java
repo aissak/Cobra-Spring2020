@@ -16,8 +16,8 @@ public class Item {
 
 
 	/**
-	 * @param itemName
 	 * @param itemID
+	 * @param itemName
 	 * @param itemDescription
 	 * @param itemStatType
 	 * @param itemStatAmount
@@ -25,7 +25,7 @@ public class Item {
 	 * @param armorPoints
 	 * @param healpoints
 	 */
-	public Item(String itemName, int itemID, String itemDescription, String itemStatType, int itemStatAmount,
+	public Item(int itemID, String itemName, String itemDescription, String itemStatType, int itemStatAmount,
 			int damagePoints, int armorPoints, int healpoints) {
 		ItemName = itemName;
 		ItemID = itemID;

@@ -66,9 +66,6 @@ public class MadMansionFX extends Application {
 		
 		CommandHandler handler = new CommandHandler();
 		
-		
-		
-		
 		titleLabel.setFont(titleFont);
 		window.setTop(titleLabel);
 		commandArea = new TextArea();
@@ -176,7 +173,6 @@ public class MadMansionFX extends Application {
 		}
 		
 		
-		
 		updateView();
 		console.clear();
 		
@@ -192,6 +188,8 @@ public class MadMansionFX extends Application {
 		PuzzleLoader.init();
 		PuzzleLoader.run();
 		puzzleList = PuzzleLoader.getPuzzles();
+		ItemLoader.init();
+		ItemLoader.run();
 		
 		for (Puzzle p : puzzleList) {
 			roomTracker[p.getRoom()].setPuzzle(p);

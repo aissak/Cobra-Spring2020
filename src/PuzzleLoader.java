@@ -6,12 +6,12 @@ import java.util.Scanner;
 
 public class PuzzleLoader {
 	private static String PUZZLE_FILE_NAME = "puzzles.txt";
+	private static File puzzleFile;
 	private static Scanner fileScanner;
 	private static ArrayList<Puzzle> puzzleList;
-	private static File puzzleFile;
 	
+	/* initializing the file */
 	public static void init() {
-		
 		puzzleList = new ArrayList<Puzzle>();
 		File puzzleFile = new File(PUZZLE_FILE_NAME);
 		try {
@@ -27,7 +27,6 @@ public class PuzzleLoader {
 			
 			// next line of file
 			String nextLine = fileScanner.nextLine();
-			//System.out.println(nextLine);
 			
 			// set up string array for each room's csv line
 			String[] splitLine = nextLine.split(";");
@@ -67,20 +66,10 @@ public class PuzzleLoader {
 				;
 			}
 			
-			
 			puzzleList.add(p);
 			
-			//Room r = new Room(splitLine);
-			//System.out.println(p);
-			//puzzleList.add(p);
-			//System.out.println("---");
-				
 		}
 		
-		//System.out.println(puzzleList.size());
-		//for (Puzzle p : puzzleList) {
-		//	System.out.println(p.toString());
-		//}
 		
 	}
 	

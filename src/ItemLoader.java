@@ -31,8 +31,18 @@ public static void run() {
 		String nextLine = fileScanner.nextLine();
 		
 		// set up string array for each room's csv line
-		String[] splitLine = nextLine.split(";", 3);
+		String[] splitLine = nextLine.split(";", 8);
 		
+		
+		Item i = new Item(Integer.valueOf(splitLine[0]), splitLine[1], 
+				splitLine[2], splitLine[3],
+				Integer.valueOf(splitLine[4]), Integer.valueOf(splitLine[5]), 
+				Integer.valueOf(splitLine[6]), Integer.valueOf(splitLine[7]));
+		
+		for (String s : splitLine) {
+			System.out.println("ITEM: " + s);
+		}
+		System.out.println("----");
 		
 		
 		
