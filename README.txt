@@ -42,7 +42,7 @@ Inside "items.txt" (in order)
 - Item Stat Increase Type
 - Item Stat Increase Amount
 
-Inside "puzzles.txt"
+Inside "puzzles.txt" (in order)
 - Puzzle ID
 - Puzzle Floor
 - Puzzle Riddle
@@ -77,5 +77,4 @@ unequip item
 
 
 Map
-
 Mad Mansion map is titled "map.png"
