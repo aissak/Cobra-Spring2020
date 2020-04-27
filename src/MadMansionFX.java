@@ -104,7 +104,6 @@ public class MadMansionFX extends Application {
 		interactionPane = new TextArea();
 		interactionPane.setEditable(false);
 		Font font = Font.font("Futura", FontWeight.EXTRA_LIGHT, 28);
-		
 		interactionPane.setFont(font);
 		window.setCenter(g);
 		interactionPane.setStyle("-fx-focus-color: transparent;\n" + 
