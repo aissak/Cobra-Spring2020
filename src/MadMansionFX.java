@@ -175,7 +175,6 @@ public class MadMansionFX extends Application {
 		
 		updateView();
 		console.clear();
-		
 	}
 	
 	public static void main(String[] args) {
@@ -191,11 +190,11 @@ public class MadMansionFX extends Application {
 		ItemLoader.init();
 		ItemLoader.run();
 		
+		System.out.println("FOR TESTING: ");
 		for (Puzzle p : puzzleList) {
 			roomTracker[p.getRoom()].setPuzzle(p);
-			System.out.println(p.getRoom());
+			System.out.println("There is a puzzle in Room " + p.getRoom());
 		}
-		
 		launch(args);
 	}
 	
