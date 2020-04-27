@@ -3,20 +3,24 @@ import java.util.ArrayList;
 
 public class Puzzle {
 
- public static final String puzzleName = "";
- public static int puzzleID = 0;
- public static String puzzleAnswer = "";
- public static final String puzzleLocation = "";
- public static int floorNumber;
-  public static String puzzleDescription = "";
- public static final String puzzleReward = "";
- public static ArrayList<String> hints;
+ public final String puzzleName = "";
+ public int puzzleID = 0;
+ public String puzzleAnswer = "";
+ public final String puzzleLocation = "";
+ public int floorNumber;
+ public String puzzleDescription = "";
+ public final String puzzleReward = "";
+ public ArrayList<String> hints;
+ public int roomNumber;
+ public boolean isSolved;
+ private int attempts;
 	
 	
 // Make sure this is right
  	
  	Puzzle (){
  		hints = new ArrayList<String>();
+ 		isSolved = false;
  	}
  	
  	public void setAnswer(String s) {
@@ -43,7 +47,39 @@ public class Puzzle {
  		this.puzzleDescription = s;
  	}
  	
- 
+
+ 	public String getDescription() {
+ 		return this.puzzleDescription;
+ 	}
+ 	
+ 	public int getFloor() {
+ 		return floorNumber;
+ 	}
+ 	
+ 	public int getRoom() {
+ 		return roomNumber;
+ 	}
+ 	
+ 	public void setRoomNumber(int roomNumber) {
+ 		this.roomNumber = roomNumber;
+ 	}
+ 	
+ 	public boolean isSolved() {
+ 		return isSolved;
+ 	}
+ 	
+ 	public String getAnswer() {
+ 		return puzzleAnswer;
+ 	}
+ 	
+ 	public void setAttempts(int i) {
+ 		this.attempts = i;
+ 	}
+ 	
+ 	public int getAttempts() {
+ 		return attempts;
+ 	}
+
 	
 	
 }

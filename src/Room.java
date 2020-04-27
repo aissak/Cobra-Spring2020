@@ -9,6 +9,7 @@ public class Room {
 	private int roomID;
 	private int floorNumber;
 	private String roomDescription = "";
+	private Puzzle puzzle;
 	
 	
 	
@@ -18,6 +19,7 @@ public class Room {
 	private boolean isSafePoint;
 	private Set<Encounter> eventPool;
 	private String toString = "";
+	private boolean hasPuzzle;
 	
 	Room(String[] roomData) {
 		this.roomID = Integer.valueOf(roomData[0]);
@@ -75,6 +77,20 @@ public class Room {
 	public String getDescription() {
 		return roomDescription;
 	}
+	
+	
+	public Puzzle getPuzzle() {
+		return this.puzzle;
+	}
+	
+	public void setPuzzle(Puzzle p) {
+		this.puzzle = p;
+	}
+	
+	public void removePuzzle(Puzzle p) {
+		p = null;
+	}
+	
 	
 	
 	

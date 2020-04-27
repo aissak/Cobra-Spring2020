@@ -9,7 +9,7 @@
 9;1;FALSE;Your getting closer to a dark presence.;0;0;6;8
 10;1;FALSE;A staircase outta here!!…...wait what’s that thing?!;11;0;8;0
 11;2;FALSE;A hero continues their adventure!;14;13;10;12
-12;2;FALSE;The smell of adventure is still in the air.;0;14;0;0
+12;2;FALSE;The smell of adventure is still in the air.;14;11;0;0
 13;2;FALSE;It's even darker now!;15;0;0;11
 14;2;FALSE;This room looks actually kinda nice.;16;15;11;12
 15;2;FALSE;Do you smell that?;17;0;13;14
