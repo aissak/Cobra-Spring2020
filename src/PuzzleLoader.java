@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 public class PuzzleLoader {
@@ -43,16 +44,31 @@ public class PuzzleLoader {
 			temp.remove(0);
 			p.setDescription(temp.get(0));
 			temp.remove(0);
-			p.setAnswer(temp.get(temp.size() - 1));
-			System.out.println(temp.get(temp.size() - 1));
+			p.setAnswer(temp.get(temp.size() - 1).toLowerCase());
 			temp.remove(temp.size() - 1);
 			
 			for (String s : temp) {
 				p.addHint(s);
 			}
-			System.out.println(p.hints);
+			
+			Random r = new Random();
+			p.setRoomNumber(((p.getFloor() * 10) + (r.nextInt(9) + 1)) - 10);
+			
+			if (p.getFloor() == 1) {
+				p.setAttempts(5);
+			}
+			else if (p.getFloor() == 2) {
+				p.setAttempts(4);
+			}
+			else if (p.getFloor() == 3) {
+				p.setAttempts(3);
+			}
+			else {
+				;
+			}
 			
 			
+			puzzleList.add(p);
 			
 			//Room r = new Room(splitLine);
 			//System.out.println(p);
@@ -61,12 +77,15 @@ public class PuzzleLoader {
 				
 		}
 		
-		
 		//System.out.println(puzzleList.size());
 		//for (Puzzle p : puzzleList) {
 		//	System.out.println(p.toString());
 		//}
 		
+	}
+	
+	public static ArrayList<Puzzle> getPuzzles() {
+		return puzzleList;
 	}
 	
 	

@@ -9,6 +9,8 @@
  */
 
 import java.awt.GraphicsEnvironment;
+import java.util.ArrayList;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -50,6 +52,8 @@ public class MadMansionFX extends Application {
 	private static Player player;
 	
 	private static Room[] roomTracker;
+	
+	private static ArrayList<Puzzle> puzzleList;
 	
 	static void createAndShowGUI(Stage primaryStage) {
 		window = new BorderPane();
@@ -129,26 +133,50 @@ public class MadMansionFX extends Application {
 		/* this is the connection between View and Controller */
 		interactionPane.setText(interactionPane.getText() + "\n" + "> " + CommandHandler.peekCommand());
 		
-		if (CommandHandler.peekCommand().contains("north")) {
-			player.setRoomNumber(roomTracker[roomTracker[player.getRoom()].getNorth()].getNumber());
-			interactionPane.setText(interactionPane.getText() + "\n" + player.getPlayerID() + " entered Room " + player.getRoom() + "!");
-			System.out.println(player.getRoom());
+		if (roomTracker[player.getRoom()].getPuzzle() != null) {
+			if (roomTracker[player.getRoom()].getPuzzle().getAttempts() == 1) {
+				System.out.println("You lost:(");
+			}
+			else if (CommandHandler.peekCommand().trim().toLowerCase().contains(roomTracker[player.getRoom()].getPuzzle().getAnswer())) {
+				roomTracker[player.getRoom()].removePuzzle(roomTracker[player.getRoom()].getPuzzle());
+				System.out.println("SOLVED");
+			}
+			else {
+				System.out.println(roomTracker[player.getRoom()].getPuzzle().getAnswer());
+				System.out.println("Not solved!");
+				System.out.println(roomTracker[player.getRoom()].getPuzzle().getAttempts());
+				roomTracker[player.getRoom()].getPuzzle().setAttempts(roomTracker[player.getRoom()].getPuzzle().getAttempts() - 1);
+			}
 		}
-		else if (CommandHandler.peekCommand().contains("south")) {
-			player.setRoomNumber(roomTracker[roomTracker[player.getRoom()].getSouth()].getNumber());
-			interactionPane.setText(interactionPane.getText() + "\n" + player.getPlayerID() + " entered Room " + player.getRoom() + "!");
-			System.out.println(player.getRoom());
+		else 
+		{
+			if (CommandHandler.peekCommand().contains("north")) {
+				player.setRoomNumber(roomTracker[roomTracker[player.getRoom()].getNorth()].getNumber());
+				interactionPane.setText(interactionPane.getText() + "\n" + player.getPlayerID() + " entered Room " + player.getRoom() + "!");
+				System.out.println(player.getRoom());
+			}
+			else if (CommandHandler.peekCommand().contains("south")) {
+				player.setRoomNumber(roomTracker[roomTracker[player.getRoom()].getSouth()].getNumber());
+				interactionPane.setText(interactionPane.getText() + "\n" + player.getPlayerID() + " entered Room " + player.getRoom() + "!");
+				System.out.println(player.getRoom());
+			}
+			else if (CommandHandler.peekCommand().contains("east")) {
+				player.setRoomNumber(roomTracker[roomTracker[player.getRoom()].getEast()].getNumber());
+				interactionPane.setText(interactionPane.getText() + "\n" + player.getPlayerID() + " entered Room " + player.getRoom() + "!");
+				System.out.println(player.getRoom());
+			}
+			else if (CommandHandler.peekCommand().contains("west")) {
+				player.setRoomNumber(roomTracker[roomTracker[player.getRoom()].getWest()].getNumber());
+				interactionPane.setText(interactionPane.getText() + "\n" + player.getPlayerID() + " entered Room " + player.getRoom() + "!");
+				System.out.println(player.getRoom());
+			}
+			else {
+				interactionPane.setText(interactionPane.getText() + "\n" + "\n" + "[SYSTEM]: Error: Unrecognizable command." + "\n");
+			}
 		}
-		else if (CommandHandler.peekCommand().contains("east")) {
-			player.setRoomNumber(roomTracker[roomTracker[player.getRoom()].getEast()].getNumber());
-			interactionPane.setText(interactionPane.getText() + "\n" + player.getPlayerID() + " entered Room " + player.getRoom() + "!");
-			System.out.println(player.getRoom());
-		}
-		else if (CommandHandler.peekCommand().contains("west")) {
-			player.setRoomNumber(roomTracker[roomTracker[player.getRoom()].getWest()].getNumber());
-			interactionPane.setText(interactionPane.getText() + "\n" + player.getPlayerID() + " entered Room " + player.getRoom() + "!");
-			System.out.println(player.getRoom());
-		}
+		
+		
+		
 		updateView();
 		console.clear();
 		
@@ -163,6 +191,13 @@ public class MadMansionFX extends Application {
 		player = PlayerLoader.getPlayer();
 		PuzzleLoader.init();
 		PuzzleLoader.run();
+		puzzleList = PuzzleLoader.getPuzzles();
+		
+		for (Puzzle p : puzzleList) {
+			roomTracker[p.getRoom()].setPuzzle(p);
+			System.out.println(p.getRoom());
+		}
+		
 		launch(args);
 	}
 	
@@ -170,7 +205,6 @@ public class MadMansionFX extends Application {
 	public void start(Stage primaryStage) {
 		createAndShowGUI(primaryStage);
 		updateView();
-	
 	}
 	
 	private static void updateView() {
@@ -195,7 +229,24 @@ public class MadMansionFX extends Application {
 			commandArea.setText(commandArea.getText() + "\n" + "[WEST]: \n- Room " + roomTracker[player.getRoom()].getWest() + "\n");
 		}
 		
-		interactionPane.setText(interactionPane.getText() + "\n" + roomTracker[player.getRoom()].getDescription());
+		if (roomTracker[player.getRoom()].getPuzzle() != null) {
+			runPuzzle();
+		}
+		else {
+			interactionPane.setText(interactionPane.getText() + "\n" + roomTracker[player.getRoom()].getDescription());
+		}
+		
+	}
+	
+	private static void runPuzzle() {
+		interactionPane.setText(interactionPane.getText() 
+				+ "\n"
+				+ "\n" + "# Hey... champ in the making!" 
+				+ "\n" + "# ..." 
+				+ "\n" + "# Riddle me this!" 
+				+ "\n"
+				+ "\n" + roomTracker[player.getRoom()].getPuzzle().getDescription());
+		
 	}
 	
 }
