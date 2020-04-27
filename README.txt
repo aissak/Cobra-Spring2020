@@ -8,7 +8,7 @@ Text files in this project:
 4. items.txt
 5. puzzles.txt
 
-Inside "rooms.txt" (in order)
+1. Inside "rooms.txt" (in order)
 - Room ID
 - Room Floor
 - Room Description text
@@ -17,13 +17,13 @@ Inside "rooms.txt" (in order)
 - Room South Availability
 - Room West Availability
 
-Inside "players.txt" (in order)
+2. Inside "players.txt" (in order)
 - Player Name
 - Player Score
 - Player Attack Points
 - Player Health Points
 
-Inside "monsters.txt" (in order)
+3. Inside "monsters.txt" (in order)
 - Monster ID
 - Monster Name
 - Monster Health Points (HP)
@@ -35,14 +35,14 @@ Inside "monsters.txt" (in order)
 - Monster Armor Low
 - Monster Armor High
 
-Inside "items.txt" (in order)
+4. Inside "items.txt" (in order)
 - Item ID
 - Item Name
 - Item Description
 - Item Stat Increase Type
 - Item Stat Increase Amount
 
-Inside "puzzles.txt" (in order)
+5. Inside "puzzles.txt" (in order)
 - Puzzle ID
 - Puzzle Floor
 - Puzzle Riddle
