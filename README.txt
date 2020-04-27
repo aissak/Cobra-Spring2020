@@ -1,3 +1,5 @@
+Mad Mansion FX
+
 Text files in this project:
 
 1. rooms.txt
@@ -17,8 +19,9 @@ Inside "rooms.txt" (in order)
 
 Inside "players.txt" (in order)
 - Player Name
-- 0
-- 0
+- Player Score
+- Player Attack Points
+- Player Health Points
 
 Inside "monsters.txt" (in order)
 - Monster ID
@@ -72,3 +75,7 @@ drop item
 equip item
 unequip item
 
+
+Map
+
+Mad Mansion map is titled "map.png"
