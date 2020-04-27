@@ -47,6 +47,7 @@ public class Puzzle {
  		this.puzzleDescription = s;
  	}
  	
+
  	public String getDescription() {
  		return this.puzzleDescription;
  	}
@@ -78,6 +79,6 @@ public class Puzzle {
  	public int getAttempts() {
  		return attempts;
  	}
- 	
+
 	
 }

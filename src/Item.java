@@ -166,7 +166,11 @@ public class Item {
 		this.healpoints = healpoints;
 	}
 
-	
+	// pickup 
+		//examine
+		//drop
+		//equip
+		//unequip
 	
 	
 }
