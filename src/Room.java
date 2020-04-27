@@ -10,6 +10,9 @@ public class Room {
 	private int floorNumber;
 	private String roomDescription = "";
 	private Puzzle puzzle;
+	private Monster monster;
+	private boolean hasMonster;
+	
 	
 	
 	// roomConnections order based on Never Eat Soggy Waffles; [N, E, S, W];
@@ -85,16 +88,36 @@ public class Room {
 		return hasPuzzle;
 	}
 	
+	public boolean hasMonster() {
+		return hasMonster;
+	}
+	
 	public void setPuzzle(Puzzle p) {
 		hasPuzzle = true;
 		this.puzzle = p;
 	}
 	
 	public void removePuzzle(Puzzle p) {
-
 		hasPuzzle = false;
 		p = null;
 	}
+	public void removeMonster(Monster m) {
+		hasMonster = false;
+		monster = null;
+	
+	}
+	
+	public void setMonster(Monster m) {
+		hasMonster = true;
+		this.monster = m;
+	}
+	
+	public Monster getMonster() {
+		return monster;
+	}
+
+	
+	
 	
 	
 	

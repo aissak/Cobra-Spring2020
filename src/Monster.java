@@ -11,6 +11,9 @@ public class Monster {
 	private int[] monsterAD = new int[2];
 	private int[] monsterArmor = new int[2];
 	private ArrayList<Item> itemDropPool;
+	private int itemID;
+	private int floorNumber;
+	private boolean isAlive;
 	
 	
 	/**
@@ -34,7 +37,9 @@ public class Monster {
 			int playerAPGain, 
 			int[] monsterHP, 
 			int[] monsterAD, 
-			int[] monsterArmor) {
+			int[] monsterArmor,
+			int itemID,
+			int floorNumber) {
 		this.monsterID = monsterID;
 		this.monsterName = monsterName;
 		this.playerHPGain = playerHPGain;
@@ -42,6 +47,9 @@ public class Monster {
 		this.monsterHP = monsterHP;
 		this.monsterAD = monsterAD;
 		this.monsterArmor = monsterArmor;
+		this.itemID = itemID;
+		this.floorNumber = floorNumber;
+		isAlive = true;
 	}
 
 
@@ -115,6 +123,10 @@ public class Monster {
 	public int[] getMonsterArmor() {
 		return monsterArmor;
 	}
+	
+	public boolean isAlive() {
+		return isAlive;
+	}
 
 
 	/**
@@ -138,6 +150,18 @@ public class Monster {
 	 */
 	public void setItemDropPool(ArrayList<Item> itemDropPool) {
 		this.itemDropPool = itemDropPool;
+	}
+	
+	public int getRoom() {
+		return floorNumber;
+	}
+	
+	public int getItemID() {
+		return itemID;
+	}
+	
+	public void setRoom(int i) {
+		this.floorNumber = i;
 	}
 	
 	

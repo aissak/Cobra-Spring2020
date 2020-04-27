@@ -10,6 +10,7 @@
 
 import java.awt.GraphicsEnvironment;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -84,7 +85,7 @@ public class MadMansionFX extends Application {
 		titleLabel.setStyle("-fx-padding: 10; -fx-background-color: #CCFF99;");
 		commandArea.setWrapText(true);
 		commandArea.setPrefWidth(100);
-		commandArea.setStyle("-fx-background-color: #0000FF;");
+		commandArea.setStyle("-fx-background-color: #2c2c2e;");
 		topFlow.setStyle(titleLabel.getStyle());
 		topFlow.setStyle("-fx-background-color: #CCFF99;");
 		
@@ -110,7 +111,7 @@ public class MadMansionFX extends Application {
 				"-fx-border-style: none;\n" + 
 				"-fx-background-radius: 0.0px;\n" + 
 				"-fx-border-radius: 0.0px;-fx-font-family: Consolas; -fx-highlight-fill: #00ff00; "
-				+ "-fx-highlight-text-fill: #000000; -fx-text-fill: #00ff00; "
+				+ "-fx-highlight-text-fill: #000000; -fx-text-fill: #2c2c2e; "
 				+ "-fx-background-color:#000000;");
 		
 		
@@ -157,6 +158,13 @@ public class MadMansionFX extends Application {
 			}
 		}
 		
+		else if (roomTracker[player.getRoom()].hasMonster() && roomTracker[player.getRoom()].getMonster().isAlive()) {
+			
+			interactionPane.setText(interactionPane.getText() + "\n" + roomTracker[player.getRoom()].getMonster().getMonsterName());
+			updateView();
+		}
+		
+		
 		/* no puzzle, so the user navigates the map */
 		else 
 		{
@@ -180,11 +188,13 @@ public class MadMansionFX extends Application {
 				interactionPane.setText(interactionPane.getText() + "\n" + player.getPlayerID() + " entered Room " + player.getRoom() + "!");
 				System.out.println(player.getRoom());
 			}
+			if (CommandHandler.peekCommand().contains("examine")) {
+				interactionPane.setText(interactionPane.getText());
+			}
 			else {
-				interactionPane.setText(interactionPane.getText() + "\n" + "\n" + "[SYSTEM]: Error: Unrecognizable command." + "\n");
+				//interactionPane.setText(interactionPane.getText() + "\n" + " Unrecognizable command." + "\n" + ">");
 			}
 		}
-		
 		
 		updateView();
 		console.clear();
@@ -208,11 +218,20 @@ public class MadMansionFX extends Application {
 		monsterList = MonsterLoader.getMonsters();
 		
 		
+		
 		System.out.println("----------------");
 		System.out.println("FOR TESTING: ");
 		for (Puzzle p : puzzleList) {
 			roomTracker[p.getRoom()].setPuzzle(p);
 			System.out.println("There is a puzzle in Room " + p.getRoom());
+		}
+		System.out.println("----------------");
+		
+		System.out.println("----------------");
+		System.out.println("FOR TESTING: ");
+		for (Monster m : monsterList) {
+			roomTracker[m.getRoom()].setMonster(m);
+			System.out.println("There is a monster in Room " + m.getRoom());
 		}
 		System.out.println("----------------");
 		launch(args);
@@ -247,7 +266,12 @@ public class MadMansionFX extends Application {
 		}
 		
 		if (roomTracker[player.getRoom()].hasPuzzle() && !(roomTracker[player.getRoom()].getPuzzle().isSolved())) {
+			interactionPane.setText(interactionPane.getText() + "\n" + roomTracker[player.getRoom()].getDescription());
 			runPuzzle();
+		}
+		if (roomTracker[player.getRoom()].hasMonster() && roomTracker[player.getRoom()].getMonster().isAlive()) {
+			interactionPane.setText(interactionPane.getText() + "\n" + roomTracker[player.getRoom()].getDescription());
+			runBattle();
 		}
 		else {
 			interactionPane.setText(interactionPane.getText() + "\n" + roomTracker[player.getRoom()].getDescription());
@@ -264,5 +288,14 @@ public class MadMansionFX extends Application {
 				+ "\n"
 				+ "\n" + roomTracker[player.getRoom()].getPuzzle().getDescription());
 	}
+	
+	private static void runBattle() {
+		interactionPane.setText(interactionPane.getText() 
+				+ "\n"
+				+ "\n" + "The horror... You've encountered a " + roomTracker[player.getRoom()].getMonster().getMonsterName() + "!"
+				+ "\n");
+	}
+	
+	
 	
 }

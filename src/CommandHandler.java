@@ -24,12 +24,8 @@ public class CommandHandler implements EventHandler<KeyEvent> {
 	public void handle(KeyEvent event) {
 		switch (event.getCode().toString()) {
 		case "ENTER": {
-			
 				commandStack.add(MadMansionFX.getCommand().trim());
-				
 				MadMansionFX.relay();
-				
-				
 			}
 		}
 		

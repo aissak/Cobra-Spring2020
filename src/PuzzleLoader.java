@@ -164,9 +164,11 @@ public class PuzzleLoader {
 			 * Which is actually Floor 3, because Floor 1 is 1-9, Floor 2 is 11-19, Floor 3 is 21-29, excluding boss rooms.
 			 * 
 			 * So subtract to give you the Room range for the assigned floor in the text file.
+			 * 
+			 * 
 			 */
 			
-			p.setRoomNumber(((p.getFloor() * 10) + (r.nextInt(9) + 1)) - 10);
+			p.setRoomNumber(((p.getFloor() * 10) + (r.nextInt(9) + 2)) - 10);
 			
 			// the document states that puzzles on floor 1 get 5 attempts, floor 2 gets 4, and floor 3 gets 3.
 			if (p.getFloor() == 1) {

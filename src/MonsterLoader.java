@@ -47,7 +47,6 @@ public class MonsterLoader {
 				;
 			}
 			else {
-				System.out.println(nextLine);
 				
 				String[] splitLine = nextLine.split(";");
 				
@@ -55,7 +54,6 @@ public class MonsterLoader {
 				
 				for (String s : splitLine) {
 					tempData.add(s);
-					System.out.println(s);
 				}
 				
 				
@@ -64,30 +62,42 @@ public class MonsterLoader {
 				int[] tempMonsterHP = new int[2];
 				int[] tempMonsterAD = new int[2];
 				int[] tempMonsterArmor = new int[2];
-				tempMonsterHP[0] = Integer.valueOf(tempData.get(3));
-				tempMonsterHP[1] = Integer.valueOf(tempData.get(4));
-				tempMonsterAD[0] = Integer.valueOf(tempData.get(5));
-				tempMonsterAD[1] = Integer.valueOf(tempData.get(6));
-				tempMonsterArmor[0] = Integer.valueOf(tempData.get(7));
-				tempMonsterArmor[1] = Integer.valueOf(tempData.get(8));
+				tempMonsterHP[0] = Integer.valueOf(splitLine[4]);
+				tempMonsterHP[1] = Integer.valueOf(splitLine[5]);
+				tempMonsterAD[0] = Integer.valueOf(splitLine[6]);
+				tempMonsterAD[1] = Integer.valueOf(splitLine[7]);
+				tempMonsterArmor[0] = Integer.valueOf(splitLine[8]);
+				tempMonsterArmor[1] = Integer.valueOf(splitLine[9]);
 				
-				Monster monster = new Monster(Integer.valueOf(tempData.get(0)), // monster ID
-						tempData.get(1), // monster name
-						Integer.valueOf(tempData.get(2)), // health points given to the player
-						Integer.valueOf(tempData.get(3)), // attack points given to the player
+				Monster monster = new Monster(Integer.valueOf(splitLine[0]), // monster ID
+						splitLine[1], // monster name
+						Integer.valueOf(splitLine[2]), // health points given to the player
+						Integer.valueOf(splitLine[3]), // attack points given to the player
 						tempMonsterHP, // monster HP range
 						tempMonsterAD, // monster AD range
-						tempMonsterArmor); // monster Armor range
+						tempMonsterArmor,
+						Integer.valueOf(splitLine[10]),
+						Integer.valueOf(splitLine[11])); // monster Armor range
+				
 				
 			
 			
-			
-				Random r = new Random();
+				if (monster.getRoom() == 10 ||
+						monster.getRoom() == 20 ||
+						monster.getRoom() == 30) {
+					;
+				}
+				else {
+					Random r = new Random();
+					int weight = r.nextInt(8) + 2;
+					int floorNumber = monster.getRoom() * 10 - 10 + weight;
+					monster.setRoom(floorNumber);
+				}
 				
-		
 				monsterList.add(monster);
 				
 			}
+			
 		}
 		
 		
