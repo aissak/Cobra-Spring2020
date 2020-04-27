@@ -246,12 +246,10 @@ public class MadMansionFX extends Application {
 		monsterList = MonsterLoader.getMonsters();
 		
 		for (Room r : roomTracker) {
-			if (r.hasMonster() && r.hasPuzzle()) {
-				r.removeMonster(r.getMonster());
-			}
+			//if (r.hasMonster() && r.hasPuzzle()) {
+			//	r.removeMonster(r.getMonster());
+			//}
 		}
-		
-		
 		
 		System.out.println("----------------");
 		System.out.println("FOR TESTING: ");
