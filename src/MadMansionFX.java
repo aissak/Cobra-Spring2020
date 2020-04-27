@@ -55,6 +55,8 @@ public class MadMansionFX extends Application {
 	
 	private static ArrayList<Puzzle> puzzleList;
 	
+	private static ArrayList<Item> itemsList;
+	
 	static void createAndShowGUI(Stage primaryStage) {
 		window = new BorderPane();
 		rightPane = new GridPane();
@@ -129,13 +131,10 @@ public class MadMansionFX extends Application {
 		
 		/* this is the connection between View and Controller */
 		interactionPane.setText(interactionPane.getText() + "\n" + "> " + CommandHandler.peekCommand());
-		System.out.println("relay() method launched;");
-		
-		
-		
 		
 		/* if the room has a puzzle: */
 		if (roomTracker[player.getRoom()].hasPuzzle() && !roomTracker[player.getRoom()].getPuzzle().isSolved()) {
+			
 			/* if the puzzle is on attempt 1, it is actually over. */
 			if (roomTracker[player.getRoom()].getPuzzle().getAttempts() == 1) {
 				System.out.println("You lost:(");
@@ -156,7 +155,6 @@ public class MadMansionFX extends Application {
 				roomTracker[player.getRoom()].getPuzzle().setAttempts(roomTracker[player.getRoom()].getPuzzle().getAttempts() - 1);
 			}
 		}
-		
 		
 		/* no puzzle, so the user navigates the map */
 		else 
@@ -203,6 +201,13 @@ public class MadMansionFX extends Application {
 		puzzleList = PuzzleLoader.getPuzzles();
 		ItemLoader.init();
 		ItemLoader.run();
+		itemsList = ItemLoader.getItems();
+		
+		
+		for (Item i : itemsList) {
+			System.out.println(i.getItemDescription());
+		}
+		
 		
 		System.out.println("FOR TESTING: ");
 		for (Puzzle p : puzzleList) {
