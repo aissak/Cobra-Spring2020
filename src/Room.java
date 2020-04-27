@@ -12,8 +12,6 @@ public class Room {
 	private Puzzle puzzle;
 	
 	
-	
-	
 	// roomConnections order based on Never Eat Soggy Waffles; [N, E, S, W];
 	private int[] roomConnections = new int[4];
 	private boolean isSafePoint;
@@ -22,6 +20,7 @@ public class Room {
 	private boolean hasPuzzle;
 	
 	Room(String[] roomData) {
+		
 		this.roomID = Integer.valueOf(roomData[0]);
 
 		this.floorNumber = Integer.valueOf(roomData[1]);
@@ -78,18 +77,26 @@ public class Room {
 		return roomDescription;
 	}
 	
-	
 	public Puzzle getPuzzle() {
 		return this.puzzle;
 	}
 	
+	public boolean hasPuzzle() {
+		return hasPuzzle;
+	}
+	
 	public void setPuzzle(Puzzle p) {
+		hasPuzzle = true;
 		this.puzzle = p;
 	}
 	
 	public void removePuzzle(Puzzle p) {
+
+		hasPuzzle = false;
 		p = null;
 	}
+	
+	
 	
 	
 	

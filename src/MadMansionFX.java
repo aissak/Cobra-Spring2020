@@ -129,14 +129,25 @@ public class MadMansionFX extends Application {
 		
 		/* this is the connection between View and Controller */
 		interactionPane.setText(interactionPane.getText() + "\n" + "> " + CommandHandler.peekCommand());
+		System.out.println("relay() method launched;");
 		
-		if (roomTracker[player.getRoom()].getPuzzle() != null) {
+		
+		
+		
+		/* if the room has a puzzle: */
+		if (roomTracker[player.getRoom()].hasPuzzle() && !roomTracker[player.getRoom()].getPuzzle().isSolved()) {
+			/* if the puzzle is on attempt 1, it is actually over. */
 			if (roomTracker[player.getRoom()].getPuzzle().getAttempts() == 1) {
 				System.out.println("You lost:(");
 			}
+			
+			// if the user's input contains the correct answer
 			else if (CommandHandler.peekCommand().trim().toLowerCase().contains(roomTracker[player.getRoom()].getPuzzle().getAnswer())) {
 				roomTracker[player.getRoom()].removePuzzle(roomTracker[player.getRoom()].getPuzzle());
+				roomTracker[player.getRoom()].getPuzzle().solve();
 				System.out.println("SOLVED");
+				interactionPane.setText(interactionPane.getText() + "\n" + player.getPlayerID() + " entered Room " + player.getRoom() + "!");
+				
 			}
 			else {
 				System.out.println(roomTracker[player.getRoom()].getPuzzle().getAnswer());
@@ -145,6 +156,9 @@ public class MadMansionFX extends Application {
 				roomTracker[player.getRoom()].getPuzzle().setAttempts(roomTracker[player.getRoom()].getPuzzle().getAttempts() - 1);
 			}
 		}
+		
+		
+		/* no puzzle, so the user navigates the map */
 		else 
 		{
 			if (CommandHandler.peekCommand().contains("north")) {
@@ -226,7 +240,7 @@ public class MadMansionFX extends Application {
 			commandArea.setText(commandArea.getText() + "\n" + "[WEST]: \n- Room " + roomTracker[player.getRoom()].getWest() + "\n");
 		}
 		
-		if (roomTracker[player.getRoom()].getPuzzle() != null) {
+		if (roomTracker[player.getRoom()].hasPuzzle() && !(roomTracker[player.getRoom()].getPuzzle().isSolved())) {
 			runPuzzle();
 		}
 		else {
@@ -243,7 +257,6 @@ public class MadMansionFX extends Application {
 				+ "\n" + "# Riddle me this!" 
 				+ "\n"
 				+ "\n" + roomTracker[player.getRoom()].getPuzzle().getDescription());
-		
 	}
 	
 }

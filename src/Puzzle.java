@@ -79,6 +79,11 @@ public class Puzzle {
  	public int getAttempts() {
  		return attempts;
  	}
+ 	
+ 	public void solve() {
+ 		
+ 		isSolved = true;
+ 	}
 
 	
 }
