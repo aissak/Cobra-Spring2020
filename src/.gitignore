@@ -10,3 +10,9 @@
 /Puzzle.class
 /Room.class
 /Weaponizable.class
+/GameLoader.class
+/ItemLoader.class
+/MonsterLoader.class
+/Player.class
+/PlayerLoader.class
+/PuzzleLoader.class
