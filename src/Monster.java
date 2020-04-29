@@ -18,6 +18,8 @@ public class Monster {
 	private boolean isTurn;
 	private int absoluteHealth;
 	private ArrayList<Integer> itemIDList;
+	private boolean isAsleep;
+	private int originalHP;
 	
 	
 	/**
@@ -54,6 +56,7 @@ public class Monster {
 		this.floorNumber = floorNumber;
 		isAlive = true;
 		isTurn = true;
+		isAsleep = false;
 		
 		
 		itemDropPool = new ArrayList<Item>();
@@ -61,6 +64,7 @@ public class Monster {
 		itemIDList.add(itemID);
 		Random r = new Random();
 		absoluteHealth = monsterHP[r.nextInt(2)];
+		originalHP = absoluteHealth;
 	}
 
 
@@ -79,12 +83,23 @@ public class Monster {
 		this.monsterName = monsterName;
 	}
 
+	
+	
 
 	/**
 	 * @return the monsterDescription
 	 */
 	public String getMonsterDescription() {
 		return monsterDescription;
+	}
+	
+	public void setAsleep(boolean b) {
+		this.isAsleep = b;
+		absoluteHealth = originalHP;
+	}
+	
+	public boolean isAsleep() {
+		return isAsleep;
 	}
 
 
