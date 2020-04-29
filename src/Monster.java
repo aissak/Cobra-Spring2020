@@ -206,7 +206,15 @@ public class Monster {
 	}
 	
 	public void incurDamage(int i) {
-		absoluteHealth-=i;
+
+		if(absoluteHealth <= 0) {
+			absoluteHealth = 0;
+		}
+		else
+		{
+			absoluteHealth-=i;
+		}
+
 		isTurn = true;
 	}
 	

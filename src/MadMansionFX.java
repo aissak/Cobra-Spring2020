@@ -217,7 +217,7 @@ public class MadMansionFX extends Application {
 				roomTracker[player.getRoom()].removePuzzle(roomTracker[player.getRoom()].getPuzzle());
 				roomTracker[player.getRoom()].getPuzzle().solve();
 				System.out.println("SOLVED");
-				interactionPane.appendText("\n" + "You have solved the puzzle! \n"  + player.getPlayerID() + " entered Room " + player.getRoom() + "!");
+				interactionPane.appendText("\n \n" + "You have solved the puzzle! \n \n"  + player.getPlayerID() + " entered Room " + player.getRoom() + "!");
 				
 			}
 			else {
@@ -250,12 +250,21 @@ public class MadMansionFX extends Application {
 			}
 			else {
 				if (CommandHandler.peekCommand().contains("attack")) {
+
 					roomTracker[player.getRoom()].getMonster().incurDamage(player.getDamage());
 					interactionPane.appendText("\n" + 
 					"You attacked the " + roomTracker[player.getRoom()].getMonster().getMonsterName() + "!");
-					interactionPane.appendText("\n" + 
-							"Their health: " + roomTracker[player.getRoom()].getMonster().getHealth() + "!");
-					
+
+					if(roomTracker[player.getRoom()].getMonster().getHealth() <= 0)
+					{
+
+						interactionPane.appendText("\n" +
+								"You have defeated the " + roomTracker[player.getRoom()].getMonster().getMonsterName() + "!");
+					}
+					else {
+						interactionPane.appendText("\n" +
+								"Their health: " + roomTracker[player.getRoom()].getMonster().getHealth() + "!");
+					}
 				}
 				
 				if (CommandHandler.peekCommand().contains("run away")) {
@@ -270,19 +279,27 @@ public class MadMansionFX extends Application {
 				
 			}
 			if (roomTracker[player.getRoom()].getMonster().getHealth() <= 0) {
-				
-				interactionPane.appendText("\n" +
-						"You have defeated the " + roomTracker[player.getRoom()].getMonster().getMonsterName() + "!");
+//				interactionPane.appendText("\n" +
+//						"You have defeated the " + roomTracker[player.getRoom()].getMonster().getMonsterName() + "!");
 				if (roomTracker[player.getRoom()].getMonster().getItems() != null 
 						&& roomTracker[player.getRoom()].getMonster().getItems().size() > 0) {
 					for (Item monsterDrop : roomTracker[player.getRoom()].getMonster().getItems()) {
 						if (!monsterDrop.isDrop()) {
 							roomTracker[player.getRoom()].addItem(monsterDrop);
+							interactionPane.appendText("\n" + "I think it dropped something...");
 						}
 					}
-					interactionPane.appendText("\n" + "I think it dropped something...");
+
 				}
 				roomTracker[player.getRoom()].getMonster().setDead();
+				if(roomTracker[player.getRoom()].getMonster().getMonsterName().equalsIgnoreCase("Phoenix") && roomTracker[player.getRoom()].getMonster().getHealth() <= 0)
+				{
+					interactionPane.appendText("\n \n You have defeated the last monster! \n Now... GET OUT OF HERE!!! RUN!!! \n");
+				}
+				else
+					{
+					interactionPane.appendText("\n A mysterious voice recommends you use a potion to heal up...");
+					}
 			}
 			
 		}
@@ -447,8 +464,11 @@ public class MadMansionFX extends Application {
 		commandArea.setText(commandArea.getText() + "Armor Points: " + player.getArmor() + "\n"+ "\n");
 		
 		/* we're lazy so let's use a sentinel value */
+
+		//commandArea.setText("\n \n [CURRENT]:\n " + roomTracker[player.getRoom()].getNumber());
+
 		if (roomTracker[player.getRoom()].getNorth() != 0) {
-			commandArea.setText(commandArea.getText() + "[NORTH]:\nRoom " + roomTracker[player.getRoom()].getNorth() + "\n" + "\n");
+			commandArea.setText(commandArea.getText() + "\n \n [NORTH]:\nRoom " + roomTracker[player.getRoom()].getNorth() + "\n" + "\n");
 		}
 		
 		if (roomTracker[player.getRoom()].getEast() != 0) {

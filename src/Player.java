@@ -80,6 +80,7 @@ public class Player {
 			}
 			else {
 				this.setHealth(playerHealth + i.getHealpoints());
+
 			}
 		}
 	}
@@ -91,7 +92,7 @@ public class Player {
 		}
 		if (i.getItemStatType().equalsIgnoreCase("Damage")) {
 			this.wieldedWeapon = null;
-			this.playerAttack = 2;
+			this.playerAttack = 55;
 		}
 		if (i.getItemStatType().equalsIgnoreCase("Healing")) {
 			;
@@ -100,7 +101,7 @@ public class Player {
 	
 	public int getDamage() {
 		if (playerAttack == 0) {
-			return 2;
+			return 55;
 		}
 		else {
 			return playerAttack;

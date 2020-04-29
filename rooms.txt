@@ -3,13 +3,13 @@
 3;1;FALSE;It's dark. Like really dark!;6;0;0;1
 4;1;FALSE;This room looks filthy.;7;5;2;0
 5;1;FALSE;Do you hear that?;8;6;1;4
-6;1;FALSE;Tired yet;9;0;3;5
+6;1;FALSE;Tired yet?;9;0;3;5
 7;1;FALSE;You feel a chill;0;8;4;0
 8;1;FALSE;It’s...it’s...another room..-_-.;10;9;5;7
 9;1;FALSE;Your getting closer to a dark presence.;0;0;6;8
 10;1;FALSE;A staircase outta here!!…...wait what’s that thing?!;11;0;8;0
 11;2;FALSE;A hero continues their adventure!;14;13;10;12
-12;2;FALSE;The smell of adventure is still in the air.;14;11;0;0
+12;2;FALSE;The smell of adventure is still in the air...;14;11;0;0
 13;2;FALSE;It's even darker now!;15;0;0;11
 14;2;FALSE;This room looks actually kinda nice.;16;15;11;12
 15;2;FALSE;Do you smell that?;17;0;13;14
