@@ -239,9 +239,14 @@ public class MadMansionFX extends Application {
 				interactionPane.appendText("\n" + roomTracker[player.getRoom()].getMonster().getMonsterName() 
 						+ " attacked!");
 				player.setHealth(player.getHealth() - roomTracker[player.getRoom()].getMonster().getAttack());
-
-				interactionPane.appendText("\n" + "Your health: " + player.getHealth());
-				roomTracker[player.getRoom()].getMonster().getAttack();
+				if(player.getHealth() <= 0)
+				{
+					interactionPane.appendText("\n You have died :( \n Please start another game to continue your adventure!");
+				}
+				else {
+					interactionPane.appendText("\n" + "Your health: " + player.getHealth());
+					roomTracker[player.getRoom()].getMonster().getAttack();
+				}
 			}
 			else {
 				if (CommandHandler.peekCommand().contains("attack")) {
@@ -431,7 +436,13 @@ public class MadMansionFX extends Application {
 		
 		/* that TextArea on the right */
 		commandArea.clear();
-		commandArea.setText(commandArea.getText() + "Health Points: " + player.getHealth() + "\n"+ "\n");
+
+		if(player.getHealth() <= 0) {
+			commandArea.setText(commandArea.getText() + "Health Points: " + 0 + "\n"+ "\n");
+		}
+		else {
+			commandArea.setText(commandArea.getText() + "Health Points: " + player.getHealth() + "\n" + "\n");
+		}
 		commandArea.setText(commandArea.getText() + "Damage Points: " + player.getDamage() + "\n"+ "\n");
 		commandArea.setText(commandArea.getText() + "Armor Points: " + player.getArmor() + "\n"+ "\n");
 		
@@ -482,6 +493,7 @@ public class MadMansionFX extends Application {
 	}
 	
 	private static void runBattle() {
+		if(player.getHealth() > 0)
 		interactionPane.appendText(
 				 "\n"
 				+ "\n" + "The horror... You've encountered a " + roomTracker[player.getRoom()].getMonster().getMonsterName() + "! \n Will you [attack] or [run away]?"
