@@ -289,7 +289,6 @@ public class MadMansionFX extends Application {
 							interactionPane.appendText("\n" + "I think it dropped something...");
 						}
 					}
-
 				}
 				roomTracker[player.getRoom()].getMonster().setDead();
 				if(roomTracker[player.getRoom()].getMonster().getMonsterName().equalsIgnoreCase("Phoenix") && roomTracker[player.getRoom()].getMonster().getHealth() <= 0)
