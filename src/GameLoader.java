@@ -36,7 +36,7 @@ public class GameLoader {
 			System.out.println(r);
 			roomList.add(r);
 			System.out.println("---");
-				
+			
 			
 		}
 		System.out.println(roomList.size());

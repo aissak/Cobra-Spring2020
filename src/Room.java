@@ -12,6 +12,7 @@ public class Room {
 	private Puzzle puzzle;
 	private Monster monster;
 	private boolean hasMonster;
+	private ArrayList<Item> items;
 	
 	
 	
@@ -43,6 +44,8 @@ public class Room {
 
 		/* West */
 		this.roomConnections[3] = Integer.valueOf(roomData[7]);
+		
+		items = new ArrayList<Item>();
 	}
 	
 	public String toString() {
@@ -104,7 +107,6 @@ public class Room {
 	public void removeMonster(Monster m) {
 		hasMonster = false;
 		monster = null;
-	
 	}
 	
 	public void setMonster(Monster m) {
@@ -115,6 +117,20 @@ public class Room {
 	public Monster getMonster() {
 		return monster;
 	}
+	
+	public void addItem(Item i) {
+		items.add(i);
+	}
+	
+	public ArrayList<Item> getItems() {
+		return items;
+	}
+	
+	public void removeItem(Item i) {
+		items.remove(i);
+	}
+	
+	
 
 	
 	

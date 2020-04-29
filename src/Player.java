@@ -5,6 +5,7 @@ public class Player {
 	private int maxFloor;
 	private String playerID = "";
 	private Item[] inventory;
+	private int inventoryIndex;
 	private int playerHealth;
 	
 	public void setRoom(Room room) {
@@ -28,8 +29,8 @@ public class Player {
 		this.playerID = splitLine[0];
 		this.score = Integer.valueOf(splitLine[1]);
 		this.roomNumber = 1;
-		
 		inventory = new Item[10];
+		inventoryIndex = 0;
 	}
 	
 	public String toString() {
@@ -43,6 +44,15 @@ public class Player {
 	
 	public int getHealth() {
 		return playerHealth;
+	}
+	
+	public void addItem(Item i) {
+		inventory[inventoryIndex] = i;
+		inventoryIndex++;
+	}
+	
+	public Item[] getInventory() {
+		return inventory;
 	}
 	
 

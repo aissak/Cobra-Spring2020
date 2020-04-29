@@ -57,7 +57,6 @@ public class MonsterLoader {
 				}
 				
 				
-			
 		
 				int[] tempMonsterHP = new int[2];
 				int[] tempMonsterAD = new int[2];
@@ -79,9 +78,6 @@ public class MonsterLoader {
 						Integer.valueOf(splitLine[10]),
 						Integer.valueOf(splitLine[11])); // monster Armor range
 				
-				
-			
-			
 				if (monster.getRoom() == 10 ||
 						monster.getRoom() == 20 ||
 						monster.getRoom() == 30) {
@@ -94,13 +90,16 @@ public class MonsterLoader {
 					monster.setRoom(floorNumber);
 				}
 				
+				if (splitLine.length > 12) {
+					for (int i = 12; i <= splitLine.length - 1; i++) {
+						System.out.println(splitLine[i]);
+						monster.addItemID(Integer.valueOf(splitLine[i]));
+					}
+				}
 				monsterList.add(monster);
-				
 			}
 			
 		}
-		
-		
 		
 	}
 	

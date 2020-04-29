@@ -34,14 +34,22 @@ public class ItemLoader {
 
 			// set up string array for each room's csv line
 			String[] splitLine = nextLine.split(";", 8);
-
+			System.out.println("Item details: ");
+			
+			for (int i = 0; i < splitLine.length; i++) {
+				System.out.println("- " + splitLine[i]);
+			}
 
 			Item i = new Item(Integer.valueOf(splitLine[0]), splitLine[1], 
 					splitLine[2], splitLine[3],
 					Integer.valueOf(splitLine[4]), Integer.valueOf(splitLine[5]), 
 					Integer.valueOf(splitLine[6]), Integer.valueOf(splitLine[7]));
 			itemList.add(i);
+			
+			
 		}
+		
+		
 		
 	}
 	
