@@ -84,6 +84,10 @@ public class Puzzle {
  		
  		isSolved = true;
  	}
+ 	
+ 	public ArrayList<String> getHints() {
+ 		return hints;
+ 	}
 
 	
 }

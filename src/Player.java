@@ -7,6 +7,11 @@ public class Player {
 	private Item[] inventory;
 	private int inventoryIndex;
 	private int playerHealth;
+	private int playerAttack;
+	private int playerArmor;
+	private Item wieldedWeapon;
+	private Item wieldedArmor;
+	
 	
 	public void setRoom(Room room) {
 		this.roomNumber = roomNumber;
@@ -53,6 +58,62 @@ public class Player {
 	
 	public Item[] getInventory() {
 		return inventory;
+	}
+	
+	public int getArmor() {
+		return this.playerArmor;
+	}
+	
+	public void equip(Item i) {
+		if (i.getItemStatType().equalsIgnoreCase("Armor")) {
+			this.wieldedArmor = i;
+			this.playerArmor = i.getArmorPoints();
+		}
+		if (i.getItemStatType().equalsIgnoreCase("Damage")) {
+			this.wieldedWeapon = i;
+			this.playerAttack = i.getDamagePoints();
+		}
+		if (i.getItemStatType().equalsIgnoreCase("Healing")) {
+			
+			if (playerHealth + i.getHealpoints() > 100) {
+				playerHealth = 100;
+			}
+			else {
+				this.setHealth(playerHealth + i.getHealpoints());
+			}
+		}
+	}
+	
+	public void unequip(Item i) {
+		if (i.getItemStatType().equalsIgnoreCase("Armor")) {
+			this.wieldedArmor = null;
+			this.playerArmor = 0;
+		}
+		if (i.getItemStatType().equalsIgnoreCase("Damage")) {
+			this.wieldedWeapon = null;
+			this.playerAttack = 2;
+		}
+		if (i.getItemStatType().equalsIgnoreCase("Healing")) {
+			;
+		}
+	}
+	
+	public int getDamage() {
+		if (playerAttack == 0) {
+			return 2;
+		}
+		else {
+			return playerAttack;
+		}
+		
+	}
+	
+	public void drop(Item item) {
+		for (int i = 0; i < inventory.length; i++) {
+			if (inventory[i] == item) {
+				inventory[i] = null;
+			}
+		}
 	}
 	
 

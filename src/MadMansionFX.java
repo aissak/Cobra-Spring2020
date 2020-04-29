@@ -63,10 +63,10 @@ public class MadMansionFX extends Application {
 	static void createAndShowGUI(Stage primaryStage) {
 		window = new BorderPane();
 		rightPane = new GridPane();
-		Font titleFont = Font.font("Chalkboard", FontWeight.THIN, 32);
+		Font titleFont = Font.font("Futura", FontWeight.THIN, 32);
 		topFlow = new FlowPane();
 
-		Label titleLabel = new Label("MadMansion FX");
+		Label titleLabel = new Label("Mad Mansion FX");
 		topFlow.getChildren().add(titleLabel);
 		
 		CommandHandler handler = new CommandHandler();
@@ -83,23 +83,25 @@ public class MadMansionFX extends Application {
 		commandArea.setEditable(false);
 		commandArea.setText("go west: w" + "\n" + "go east: e" );
 		window.setRight(rightPane);
-		titleLabel.setStyle("-fx-padding: 10; -fx-background-color: #CCFF99;");
+		titleLabel.setStyle("-fx-padding: 10; -fx-background-color: red; -fx-fill-width: true; -fx-text-fill: #FFFFFF;");
 		commandArea.setWrapText(true);
 		commandArea.setPrefWidth(100);
 		commandArea.setStyle("-fx-background-color: #2c2c2e;");
 		topFlow.setStyle(titleLabel.getStyle());
 		topFlow.setStyle("-fx-background-color: #CCFF99;");
-		
+		commandArea.setPrefRowCount(50);
 
 		GridPane g = new GridPane();
 		GridPane leftPanel = new GridPane();
-		leftPanel.setPadding(new Insets(5));
-		leftPanel.setVgap(10);
+		//leftPanel.setPadding(new Insets(5));
+		//leftPanel.setVgap(10);
 
-		window.setLeft(leftPanel);
+		//window.setLeft(leftPanel);
 		
 		interactionPane = new TextArea();
 		interactionPane.setEditable(false);
+		interactionPane.setPrefColumnCount(50);
+		interactionPane.setPrefRowCount(60);
 		
 		//interactionPane.setFont(font);
 		window.setCenter(g);
@@ -127,40 +129,80 @@ public class MadMansionFX extends Application {
 	
 	/* this method defines what happens after the user clicks ENTER */
 	public static void relay() {
+		interactionPane.appendText("\n" + "[" + player.getPlayerID() + "]: " + CommandHandler.peekCommand());
 		
 		if (CommandHandler.peekCommand().contains("inspect")) {
-			for (Item i : roomTracker[player.getRoom()].getItems()) {
-				interactionPane.setText(interactionPane.getText() + "\n" + i.getItemName());
+			if (roomTracker[player.getRoom()].getItems().size() == 0) {
+				interactionPane.appendText("\n" + "Nothing to see here..." + "\n");
 			}
+			else {
+				interactionPane.appendText("\n" + "\n" + "What's that?");
+				for (Item i : roomTracker[player.getRoom()].getItems()) {
+					interactionPane.appendText("\n" +"A " + i.getItemName() +"!");
+				}
+				interactionPane.appendText("\n");
+			}
+			
 		}
 		
 		if (CommandHandler.peekCommand().contains("pick up")) {
 			for (Item i : roomTracker[player.getRoom()].getItems()) {
-				if (CommandHandler.peekCommand().contains(i.getItemName())) {
+				if (CommandHandler.peekCommand().toLowerCase().contains(i.getItemName().toLowerCase())) {
 					player.addItem(i);
 					roomTracker[player.getRoom()].removeItem(i);
 					break;
 				}
 			}
 		}
+		if (CommandHandler.peekCommand().contains("equip")) {
+			for (int i = 0; i < player.getInventory().length; i++) {
+				if (CommandHandler.peekCommand().toLowerCase().contains(player.getInventory()[i].getItemName().toLowerCase())) {
+					player.equip(player.getInventory()[i]);
+					break;
+				}
+			}
+		}
+		
+		if (CommandHandler.peekCommand().contains("unequip")) {
+			for (int i = 0; i < player.getInventory().length; i++) {
+				if (CommandHandler.peekCommand().toLowerCase().contains(player.getInventory()[i].getItemName().toLowerCase())) {
+					player.unequip(player.getInventory()[i]);
+					break;
+				}
+			}
+		}
 		
 		if (CommandHandler.peekCommand().contains("drop")) {
-			
+			for (int i = 0; i < player.getInventory().length; i++) {
+				if (player.getInventory()[i] == null) {
+					;
+				}
+				else {
+					if (CommandHandler.peekCommand().toLowerCase().contains(player.getInventory()[i].getItemName().toLowerCase())) {
+						player.drop(player.getInventory()[i]);
+					}
+				}
+				
+			}
 		}
 		
 		if (CommandHandler.peekCommand().contains("inventory")) {
-			System.out.println("inventory");
 			for (int i = 0; i < player.getInventory().length - 1; i++) {
 				if (player.getInventory()[i] != null) {
-					interactionPane.setText(interactionPane.getText() + "\n" + player.getInventory()[i].getItemName());
-					System.out.println("\n" + player.getInventory()[i].getItemName());
+					//interactionPane.appendText("\n" + player.getInventory()[i].getItemName());
+					interactionPane.appendText("\n"+ "\n" + "---"+ "[INVENTORY]: " + "\n" + player.getInventory()[i].getItemName() + "---");
 				}
 			}
 		}
 		
 		
+		
+		
+		
+		
+		
 		/* this is the connection between View and Controller */
-		interactionPane.setText(interactionPane.getText() + "\n" + "> " + CommandHandler.peekCommand());
+		
 		
 		/* if the room has a puzzle: */
 		if (roomTracker[player.getRoom()].hasPuzzle() && !roomTracker[player.getRoom()].getPuzzle().isSolved()) {
@@ -175,7 +217,7 @@ public class MadMansionFX extends Application {
 				roomTracker[player.getRoom()].removePuzzle(roomTracker[player.getRoom()].getPuzzle());
 				roomTracker[player.getRoom()].getPuzzle().solve();
 				System.out.println("SOLVED");
-				interactionPane.setText(interactionPane.getText() + "\n" + "You have solved the puzzle! \n"  + player.getPlayerID() + " entered Room " + player.getRoom() + "!");
+				interactionPane.appendText("\n" + "You have solved the puzzle! \n"  + player.getPlayerID() + " entered Room " + player.getRoom() + "!");
 				
 			}
 			else {
@@ -186,27 +228,45 @@ public class MadMansionFX extends Application {
 			}
 		}
 		
-		else if (roomTracker[player.getRoom()].hasMonster() && roomTracker[player.getRoom()].getMonster().isAlive()) {
+		
+		
+		
+		
+		
+		else if (roomTracker[player.getRoom()].hasMonster() && roomTracker[player.getRoom()].getMonster().isAlive() && !roomTracker[player.getRoom()].getMonster().isAsleep()) {
 			
-			if (roomTracker[player.getRoom()].getMonster().getTurn()) {
-				interactionPane.setText(interactionPane.getText() + "\n" + roomTracker[player.getRoom()].getMonster().getMonsterName() 
+			if (roomTracker[player.getRoom()].getMonster().getTurn() && !roomTracker[player.getRoom()].getMonster().isAsleep()) {
+				interactionPane.appendText("\n" + roomTracker[player.getRoom()].getMonster().getMonsterName() 
 						+ " attacked!");
 				player.setHealth(player.getHealth() - roomTracker[player.getRoom()].getMonster().getAttack());
 
-				interactionPane.setText(interactionPane.getText() + "\n" + "Your health: " + player.getHealth());
+				interactionPane.appendText("\n" + "Your health: " + player.getHealth());
 				roomTracker[player.getRoom()].getMonster().getAttack();
 			}
 			else {
-				roomTracker[player.getRoom()].getMonster().incurDamage(2);
-				interactionPane.setText(interactionPane.getText() + "\n" + 
-				"You attacked the " + roomTracker[player.getRoom()].getMonster().getMonsterName() + "!");
-				interactionPane.setText(interactionPane.getText() + "\n" + 
-						"Their health: " + roomTracker[player.getRoom()].getMonster().getHealth() + "!");
+				if (CommandHandler.peekCommand().contains("attack")) {
+					roomTracker[player.getRoom()].getMonster().incurDamage(player.getDamage());
+					interactionPane.appendText("\n" + 
+					"You attacked the " + roomTracker[player.getRoom()].getMonster().getMonsterName() + "!");
+					interactionPane.appendText("\n" + 
+							"Their health: " + roomTracker[player.getRoom()].getMonster().getHealth() + "!");
+					
+				}
+				
+				if (CommandHandler.peekCommand().contains("run away")) {
+					roomTracker[player.getRoom()].getMonster().setAsleep(true);
+					
+					interactionPane.appendText("\n" + 
+					"You evaded the " + roomTracker[player.getRoom()].getMonster().getMonsterName() + "!");
+					interactionPane.appendText("\n" + 
+							"Their health: " + roomTracker[player.getRoom()].getMonster().getHealth() + "!");
+					
+				}
 				
 			}
 			if (roomTracker[player.getRoom()].getMonster().getHealth() <= 0) {
 				
-				interactionPane.setText(interactionPane.getText() + "\n" +
+				interactionPane.appendText("\n" +
 						"You have defeated the " + roomTracker[player.getRoom()].getMonster().getMonsterName() + "!");
 				if (roomTracker[player.getRoom()].getMonster().getItems() != null 
 						&& roomTracker[player.getRoom()].getMonster().getItems().size() > 0) {
@@ -215,7 +275,7 @@ public class MadMansionFX extends Application {
 							roomTracker[player.getRoom()].addItem(monsterDrop);
 						}
 					}
-					interactionPane.setText(interactionPane.getText() + "\n" + "I think it dropped something...");
+					interactionPane.appendText("\n" + "I think it dropped something...");
 				}
 				roomTracker[player.getRoom()].getMonster().setDead();
 			}
@@ -228,32 +288,36 @@ public class MadMansionFX extends Application {
 		/* no puzzle, so the user navigates the map */
 		else 
 		{
+			if (roomTracker[player.getRoom()].hasMonster()) {
+				roomTracker[player.getRoom()].getMonster().setAsleep(false);
+			}
 			if (CommandHandler.peekCommand().contains("north")) {
 				player.setRoomNumber(roomTracker[roomTracker[player.getRoom()].getNorth()].getNumber());
-				interactionPane.setText(interactionPane.getText() + "\n" + player.getPlayerID() + " entered Room " + player.getRoom() + "!");
-				System.out.println(player.getRoom());
+				interactionPane.appendText("\n" +"\n" + player.getPlayerID() + " entered Room " + player.getRoom() + "!");
+				interactionPane.appendText("\n" + roomTracker[player.getRoom()].getDescription());
 			}
 			else if (CommandHandler.peekCommand().contains("south")) {
+
 				player.setRoomNumber(roomTracker[roomTracker[player.getRoom()].getSouth()].getNumber());
-				interactionPane.setText(interactionPane.getText() + "\n" + player.getPlayerID() + " entered Room " + player.getRoom() + "!");
-				System.out.println(player.getRoom());
+				interactionPane.appendText("\n" + "\n" +player.getPlayerID() + " entered Room " + player.getRoom() + "!");
+				interactionPane.appendText("\n" + roomTracker[player.getRoom()].getDescription());
 			}
 			else if (CommandHandler.peekCommand().contains("east")) {
+
 				player.setRoomNumber(roomTracker[roomTracker[player.getRoom()].getEast()].getNumber());
-				interactionPane.setText(interactionPane.getText() + "\n" + player.getPlayerID() + " entered Room " + player.getRoom() + "!");
-				System.out.println(player.getRoom());
+				interactionPane.appendText("\n"+"\n" + player.getPlayerID() + " entered Room " + player.getRoom() + "!");
+				interactionPane.appendText("\n" + roomTracker[player.getRoom()].getDescription());
 			}
 			else if (CommandHandler.peekCommand().contains("west")) {
 				player.setRoomNumber(roomTracker[roomTracker[player.getRoom()].getWest()].getNumber());
-				interactionPane.setText(interactionPane.getText() + "\n" + player.getPlayerID() + " entered Room " + player.getRoom() + "!");
-				System.out.println(player.getRoom());
+				interactionPane.appendText("\n" +"\n"+ player.getPlayerID() + " entered Room " + player.getRoom() + "!");
+				interactionPane.appendText("\n" +roomTracker[player.getRoom()].getDescription());
 			}
 			
 			else {
-				interactionPane.setText(interactionPane.getText() + "\n" + " Unrecognizable command.");
+				// interactionPane.appendText( "\n" + " Unrecognizable command.");
 			}
 		}
-		
 		
 		updateView();
 		console.clear();
@@ -359,58 +423,68 @@ public class MadMansionFX extends Application {
 	public void start(Stage primaryStage) {
 		createAndShowGUI(primaryStage);
 		updateView();
+
+		interactionPane.appendText("\n" + "\n" + "You're in Room " + roomTracker[player.getRoom()].getNumber() + ": " + roomTracker[player.getRoom()].getDescription() + "\n");
 	}
 	
 	private static void updateView() {
 		
 		/* that TextArea on the right */
 		commandArea.clear();
+		commandArea.setText(commandArea.getText() + "Health Points: " + player.getHealth() + "\n"+ "\n");
+		commandArea.setText(commandArea.getText() + "Damage Points: " + player.getDamage() + "\n"+ "\n");
+		commandArea.setText(commandArea.getText() + "Armor Points: " + player.getArmor() + "\n"+ "\n");
 		
 		/* we're lazy so let's use a sentinel value */
 		if (roomTracker[player.getRoom()].getNorth() != 0) {
-			commandArea.setText(commandArea.getText() + "[NORTH]:\nRoom " + roomTracker[player.getRoom()].getNorth() + "\n");
+			commandArea.setText(commandArea.getText() + "[NORTH]:\nRoom " + roomTracker[player.getRoom()].getNorth() + "\n" + "\n");
 		}
 		
 		if (roomTracker[player.getRoom()].getEast() != 0) {
-			commandArea.setText(commandArea.getText() + "[EAST]:\nRoom " + roomTracker[player.getRoom()].getEast() + "\n");
+			commandArea.setText(commandArea.getText() + "[EAST]:\nRoom " + roomTracker[player.getRoom()].getEast() + "\n"  + "\n");
 		}
 		
 		if (roomTracker[player.getRoom()].getSouth() != 0) {
-			commandArea.setText(commandArea.getText() + "[SOUTH]:\nRoom " + roomTracker[player.getRoom()].getSouth() + "\n");
+			commandArea.setText(commandArea.getText() + "[SOUTH]:\nRoom " + roomTracker[player.getRoom()].getSouth() + "\n" + "\n");
 		}
 		
 		if (roomTracker[player.getRoom()].getWest() != 0) {
-			commandArea.setText(commandArea.getText() + "[WEST]:\nRoom " + roomTracker[player.getRoom()].getWest() + "\n");
+			commandArea.setText(commandArea.getText() + "[WEST]:\nRoom " + roomTracker[player.getRoom()].getWest() + "\n"+ "\n");
 		}
 		
 		if (roomTracker[player.getRoom()].hasPuzzle() && !(roomTracker[player.getRoom()].getPuzzle().isSolved())) {
-			interactionPane.setText(interactionPane.getText() + "\n" + roomTracker[player.getRoom()].getDescription());
+			interactionPane.appendText("\n" + roomTracker[player.getRoom()].getDescription());
+			for (String s : roomTracker[player.getRoom()].getPuzzle().getHints()) {
+				//commandArea.setText(commandArea.getText() + s);
+			}
 			runPuzzle();
 		}
-		if (roomTracker[player.getRoom()].hasMonster() && roomTracker[player.getRoom()].getMonster().isAlive()) {
+		if (roomTracker[player.getRoom()].hasMonster() && roomTracker[player.getRoom()].getMonster().isAlive() && !roomTracker[player.getRoom()].getMonster().isAsleep()) {
 			//interactionPane.setText(interactionPane.getText() + "\n" + roomTracker[player.getRoom()].getDescription());
-			runBattle();
+			if (!roomTracker[player.getRoom()].hasPuzzle()) {
+				runBattle();
+			}
 		}
 		else {
-			interactionPane.setText(interactionPane.getText() + "\n" + roomTracker[player.getRoom()].getDescription());
+			//interactionPane.appendText("\n" + "\n" + "You're in Room " + roomTracker[player.getRoom()].getNumber() + ". " + roomTracker[player.getRoom()].getDescription());
 		}
 		
 	}
 	
 	private static void runPuzzle() {
-		interactionPane.setText(interactionPane.getText() 
-				+ "\n"
+		interactionPane.appendText(
+				 "\n"
 				+ "\n" + "# Hey... champ in the making!" 
 				+ "\n" + "# ..." 
 				+ "\n" + "# Riddle me this!" 
 				+ "\n"
-				+ "\n" + roomTracker[player.getRoom()].getPuzzle().getDescription());
+				+ "\n" + roomTracker[player.getRoom()].getPuzzle().getDescription() + "\n");
 	}
 	
 	private static void runBattle() {
-		interactionPane.setText(interactionPane.getText() 
-				+ "\n"
-				+ "\n" + "The horror... You've encountered a " + roomTracker[player.getRoom()].getMonster().getMonsterName() + "! \n Press enter or return on your keyboard to attack!"
+		interactionPane.appendText(
+				 "\n"
+				+ "\n" + "The horror... You've encountered a " + roomTracker[player.getRoom()].getMonster().getMonsterName() + "! \n Will you [attack] or [run away]?"
 				+ "\n");
 	}
 	
