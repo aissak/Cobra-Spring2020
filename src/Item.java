@@ -10,6 +10,7 @@ public class Item {
 	private int damagePoints;
 	private int armorPoints;
 	private int healpoints;
+	private boolean wasDropped;
 	
 
 
@@ -170,6 +171,14 @@ public class Item {
 		return "Item [ItemName=" + ItemName + ", ItemID=" + ItemID + ", ItemDescription=" + ItemDescription
 				+ ", ItemStatType=" + ItemStatType + ", ItemStatAmount=" + ItemStatAmount + ", damagePoints="
 				+ damagePoints + ", armorPoints=" + armorPoints + ", healpoints=" + healpoints + "]";
+	}
+	
+	public boolean isDrop() {
+		return wasDropped;
+	}
+	
+	public void setDropped(boolean wasDropped) {
+		this.wasDropped = wasDropped;
 	}
 	
 	

@@ -17,6 +17,7 @@ public class Monster {
 	private boolean isAlive;
 	private boolean isTurn;
 	private int absoluteHealth;
+	private ArrayList<Integer> itemIDList;
 	
 	
 	/**
@@ -24,7 +25,6 @@ public class Monster {
 	 */
 	public Monster() {
 	}
-
 
 	/**
 	 * @param monsterName
@@ -55,6 +55,10 @@ public class Monster {
 		isAlive = true;
 		isTurn = true;
 		
+		
+		itemDropPool = new ArrayList<Item>();
+		itemIDList = new ArrayList<Integer>();
+		itemIDList.add(itemID);
 		Random r = new Random();
 		absoluteHealth = monsterHP[r.nextInt(2)];
 	}
@@ -192,7 +196,24 @@ public class Monster {
 	}
 	
 	public void setDead() {
+		itemDropPool = null;
 		isAlive = false;
+	}
+	
+	public void addItemID(int itemID) {
+		itemIDList.add(itemID);
+	}
+	
+	public ArrayList<Integer> getItemIDs() {
+		return itemIDList;
+	}
+	
+	public void addItem(Item item) {
+		itemDropPool.add(item);
+	}
+	
+	public ArrayList<Item> getItems() {
+		return itemDropPool;
 	}
 	
 	

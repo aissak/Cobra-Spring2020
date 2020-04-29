@@ -74,7 +74,6 @@ public class MadMansionFX extends Application {
 		titleLabel.setFont(titleFont);
 		window.setTop(titleLabel);
 		commandArea = new TextArea();
-		
 		console = new TextArea();
 		console.setOnKeyPressed(handler);
 		window.setBottom(console);
@@ -100,7 +99,7 @@ public class MadMansionFX extends Application {
 		
 		interactionPane = new TextArea();
 		interactionPane.setEditable(false);
-		
+		Font font = Font.font("Futura", FontWeight.EXTRA_LIGHT, 16);
 		//interactionPane.setFont(font);
 		window.setCenter(g);
 		g.setMinSize(200, 200);
@@ -127,37 +126,6 @@ public class MadMansionFX extends Application {
 	
 	/* this method defines what happens after the user clicks ENTER */
 	public static void relay() {
-		
-		if (CommandHandler.peekCommand().contains("inspect")) {
-			for (Item i : roomTracker[player.getRoom()].getItems()) {
-				interactionPane.setText(interactionPane.getText() + "\n" + i.getItemName());
-			}
-		}
-		
-		if (CommandHandler.peekCommand().contains("pick up")) {
-			for (Item i : roomTracker[player.getRoom()].getItems()) {
-				if (CommandHandler.peekCommand().contains(i.getItemName())) {
-					player.addItem(i);
-					roomTracker[player.getRoom()].removeItem(i);
-					break;
-				}
-			}
-		}
-		
-		if (CommandHandler.peekCommand().contains("drop")) {
-			
-		}
-		
-		if (CommandHandler.peekCommand().contains("inventory")) {
-			System.out.println("inventory");
-			for (int i = 0; i < player.getInventory().length - 1; i++) {
-				if (player.getInventory()[i] != null) {
-					interactionPane.setText(interactionPane.getText() + "\n" + player.getInventory()[i].getItemName());
-					System.out.println("\n" + player.getInventory()[i].getItemName());
-				}
-			}
-		}
-		
 		
 		/* this is the connection between View and Controller */
 		interactionPane.setText(interactionPane.getText() + "\n" + "> " + CommandHandler.peekCommand());
@@ -186,7 +154,13 @@ public class MadMansionFX extends Application {
 			}
 		}
 		
+		
+		
+		
 		else if (roomTracker[player.getRoom()].hasMonster() && roomTracker[player.getRoom()].getMonster().isAlive()) {
+			// interactionPane.setText(interactionPane.getText() + "\n" + roomTracker[player.getRoom()].getMonster().getMonsterName());
+			//updateView();
+			
 			
 			if (roomTracker[player.getRoom()].getMonster().getTurn()) {
 				interactionPane.setText(interactionPane.getText() + "\n" + roomTracker[player.getRoom()].getMonster().getMonsterName() 
@@ -205,20 +179,11 @@ public class MadMansionFX extends Application {
 				
 			}
 			if (roomTracker[player.getRoom()].getMonster().getHealth() <= 0) {
-				
+				roomTracker[player.getRoom()].getMonster().setDead();
 				interactionPane.setText(interactionPane.getText() + "\n" +
 						"You have defeated the " + roomTracker[player.getRoom()].getMonster().getMonsterName() + "!");
-				if (roomTracker[player.getRoom()].getMonster().getItems() != null 
-						&& roomTracker[player.getRoom()].getMonster().getItems().size() > 0) {
-					for (Item monsterDrop : roomTracker[player.getRoom()].getMonster().getItems()) {
-						if (!monsterDrop.isDrop()) {
-							roomTracker[player.getRoom()].addItem(monsterDrop);
-						}
-					}
-					interactionPane.setText(interactionPane.getText() + "\n" + "I think it dropped something...");
-				}
-				roomTracker[player.getRoom()].getMonster().setDead();
 			}
+			
 			
 		}
 		
@@ -248,12 +213,13 @@ public class MadMansionFX extends Application {
 				interactionPane.setText(interactionPane.getText() + "\n" + player.getPlayerID() + " entered Room " + player.getRoom() + "!");
 				System.out.println(player.getRoom());
 			}
-			
+			if (CommandHandler.peekCommand().contains("examine")) {
+				interactionPane.setText(interactionPane.getText());
+			}
 			else {
-				interactionPane.setText(interactionPane.getText() + "\n" + " Unrecognizable command.");
+				//interactionPane.setText(interactionPane.getText() + "\n" + " Unrecognizable command." + "\n" + ">");
 			}
 		}
-		
 		
 		updateView();
 		console.clear();
@@ -277,22 +243,11 @@ public class MadMansionFX extends Application {
 		MonsterLoader.run();
 		monsterList = MonsterLoader.getMonsters();
 		
-		
-		for (Monster m : monsterList) {
-			System.out.println(m.getMonsterName() + " drops: ");
-			for (int id : m.getItemIDs()) {
-				for (Item item : itemsList) {
-					if (id == item.getItemID()) {
-						m.addItem(item);
-					}
-				}
-			}
-			for (Item i : m.getItemDropPool()) {
-				System.out.println(i.getItemName() + "\n");
-			}
+		for (Room r : roomTracker) {
+			//if (r.hasMonster() && r.hasPuzzle()) {
+			//	r.removeMonster(r.getMonster());
+			//}
 		}
-		
-		
 		
 		System.out.println("----------------");
 		System.out.println("FOR TESTING: ");
@@ -309,50 +264,7 @@ public class MadMansionFX extends Application {
 			System.out.println("There is a monster in Room " + m.getRoom());
 		}
 		System.out.println("----------------");
-		
-		System.out.println("----------------");
-		System.out.println("FOR TESTING: ");
-		
-		for (int i = 1; i < roomTracker.length; i++) {
-			if (roomTracker[i].getItems().size() > 0) {
-				System.out.println("e");
-				for (Item roomItem : roomTracker[i].getItems()) {
-					
-					System.out.println("There is a " + roomItem.getItemName() + " in Room " + roomTracker[i].getNumber());
-				}
-			}
-		}
-		
-		
-		
-		for (int i = 1; i < roomTracker.length; i++) {
-			if (roomTracker[i].hasMonster()) {
-				
-				for (Item item : roomTracker[i].getMonster().getItems()) {
-					Random r = new Random();
-					int dropChance = r.nextInt(3);
-					if (dropChance == 0) {
-						roomTracker[i].addItem(item);
-						item.setDropped(true);
-						System.out.println("Item drop in " + roomTracker[i].getNumber());
-					}
-				}
-				
-				
-				
-				
-			}
-			
-			
-			
-			
-		}
-		
-		
-		
-		
 		launch(args);
-		
 	}
 	
 	
@@ -368,19 +280,19 @@ public class MadMansionFX extends Application {
 		
 		/* we're lazy so let's use a sentinel value */
 		if (roomTracker[player.getRoom()].getNorth() != 0) {
-			commandArea.setText(commandArea.getText() + "[NORTH]:\nRoom " + roomTracker[player.getRoom()].getNorth() + "\n");
+			commandArea.setText(commandArea.getText() + "\n" + "[NORTH]: \n- Room " + roomTracker[player.getRoom()].getNorth() + "\n");
 		}
 		
 		if (roomTracker[player.getRoom()].getEast() != 0) {
-			commandArea.setText(commandArea.getText() + "[EAST]:\nRoom " + roomTracker[player.getRoom()].getEast() + "\n");
+			commandArea.setText(commandArea.getText() + "\n" + "[EAST]: \n- Room " + roomTracker[player.getRoom()].getEast() + "\n");
 		}
 		
 		if (roomTracker[player.getRoom()].getSouth() != 0) {
-			commandArea.setText(commandArea.getText() + "[SOUTH]:\nRoom " + roomTracker[player.getRoom()].getSouth() + "\n");
+			commandArea.setText(commandArea.getText() + "\n" + "[SOUTH]: \n- Room " + roomTracker[player.getRoom()].getSouth() + "\n");
 		}
 		
 		if (roomTracker[player.getRoom()].getWest() != 0) {
-			commandArea.setText(commandArea.getText() + "[WEST]:\nRoom " + roomTracker[player.getRoom()].getWest() + "\n");
+			commandArea.setText(commandArea.getText() + "\n" + "[WEST]: \n- Room " + roomTracker[player.getRoom()].getWest() + "\n");
 		}
 		
 		if (roomTracker[player.getRoom()].hasPuzzle() && !(roomTracker[player.getRoom()].getPuzzle().isSolved())) {
