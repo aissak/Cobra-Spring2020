@@ -63,10 +63,10 @@ public class MadMansionFX extends Application {
 	static void createAndShowGUI(Stage primaryStage) {
 		window = new BorderPane();
 		rightPane = new GridPane();
-		Font titleFont = Font.font("Chalkboard", FontWeight.THIN, 32);
+		Font titleFont = Font.font("Futura", FontWeight.THIN, 32);
 		topFlow = new FlowPane();
 
-		Label titleLabel = new Label("MadMansion FX");
+		Label titleLabel = new Label("Mad Mansion FX");
 		topFlow.getChildren().add(titleLabel);
 		
 		CommandHandler handler = new CommandHandler();
@@ -83,23 +83,25 @@ public class MadMansionFX extends Application {
 		commandArea.setEditable(false);
 		commandArea.setText("go west: w" + "\n" + "go east: e" );
 		window.setRight(rightPane);
-		titleLabel.setStyle("-fx-padding: 10; -fx-background-color: #CCFF99;");
+		titleLabel.setStyle("-fx-padding: 10; -fx-background-color: red; -fx-fill-width: true; -fx-text-fill: #FFFFFF;");
 		commandArea.setWrapText(true);
 		commandArea.setPrefWidth(100);
 		commandArea.setStyle("-fx-background-color: #2c2c2e;");
 		topFlow.setStyle(titleLabel.getStyle());
 		topFlow.setStyle("-fx-background-color: #CCFF99;");
-		
+		commandArea.setPrefRowCount(50);
 
 		GridPane g = new GridPane();
 		GridPane leftPanel = new GridPane();
-		leftPanel.setPadding(new Insets(5));
-		leftPanel.setVgap(10);
+		//leftPanel.setPadding(new Insets(5));
+		//leftPanel.setVgap(10);
 
-		window.setLeft(leftPanel);
+		//window.setLeft(leftPanel);
 		
 		interactionPane = new TextArea();
 		interactionPane.setEditable(false);
+		interactionPane.setPrefColumnCount(50);
+		interactionPane.setPrefRowCount(60);
 		
 		//interactionPane.setFont(font);
 		window.setCenter(g);
@@ -422,7 +424,7 @@ public class MadMansionFX extends Application {
 		createAndShowGUI(primaryStage);
 		updateView();
 
-		interactionPane.appendText("\n" + "\n" + "You're in Room " + roomTracker[player.getRoom()].getNumber() + ". " + roomTracker[player.getRoom()].getDescription() + "\n");
+		interactionPane.appendText("\n" + "\n" + "You're in Room " + roomTracker[player.getRoom()].getNumber() + ": " + roomTracker[player.getRoom()].getDescription() + "\n");
 	}
 	
 	private static void updateView() {
